@@ -1,7 +1,7 @@
 <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title">  <span>CCS Assets</span></a>
+              <a href="{{route('dashboard')}}" class="site_title">  <i class='fa fa-institution'></i><span>CCS Assets</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -25,19 +25,20 @@
               <div class="menu_section">
                 <h3></h3>
                 <ul class="nav side-menu">
-                  <li><a><i class="{{route('dashboard')}}"></i> Dashboard <span class="fa fa-chevron-down"></span></a>
-                  </li>
+                <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                  <ul class="nav child_menu">
+                      <li><a href="{{route('dashboard')}}">Dashboard</a></li>
+                    </ul>
                   <li><a><i class="fa fa-edit"></i> Assets <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{route('item.index')}}">Assets Management</a></li>
-                      <li><a href="{{route('inventory.index')}}">Inventory</a></li>
+                      <li><a href="{{route('item.index')}}">Assets</a></li>
+                      <li><a href="{{route('inventory.index')}}">Inventory (beta)</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-desktop"></i> User Management <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-user"></i> User Management <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="general_elements.html">User Records</a></li>
-                      <li><a href="media_gallery.html">Role</a></li>
-                      <li><a href="typography.html">Permissions</a></li>
+                      <li><a href="{{route('user.index')}}">User Records</a></li>
+                      
                     </ul>
                   </li>
                   <li><a><i class="fa fa-table"></i> Setup <span class="fa fa-chevron-down"></span></a>

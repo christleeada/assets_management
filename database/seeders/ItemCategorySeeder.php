@@ -15,12 +15,27 @@ class ItemCategorySeeder extends Seeder
     {
         ItemCategory::insert(
             [
-                ['item_category' => 'Computer'],
-                ['item_category' => 'Computer Peripherals'],
-                ['item_category' => 'Computer Tools'],
-                ['item_category' => 'Office Equipment'],
-                ['item_category' => 'Office Furniture'],
-                ['item_category' => 'Tool'],
+                ['item_category' => 'Desktop Computer',
+                'post_status_id' => 1,
+            ],
+                ['item_category' => 'Laptop',
+                'post_status_id' => 1,
+            ],
+                ['item_category' => 'Computer Peripherals',
+                'post_status_id' => 1,
+            ],
+                ['item_category' => 'Computer Tools',
+                'post_status_id' => 1,
+            ],
+                ['item_category' => 'Office Equipment',
+                'post_status_id' => 1,
+            ],
+                ['item_category' => 'Office Furniture',
+                'post_status_id' => 1,
+            ],
+                ['item_category' => 'Tool',
+                'post_status_id' => 1,
+            ],
                 
             ]
       );

@@ -10,7 +10,8 @@ use App\Http\Controllers\LocationController;
 use App\Http\Controllers\UnitTypeController;
 use App\Http\Controllers\PrefixController;
 use App\Http\Controllers\ItemController;
-
+use App\Http\Controllers\UserController;
+use App\Models\Item;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,7 +46,19 @@ Route::middleware('auth')->group(function () {
     Route::resource('/prefix', PrefixController::class);
     Route::resource('/item', ItemController::class);
     Route::resource('/inventory', InventoryController::class);
-    Route::get('/qrcode/generate/{itemId}', [QrcodeController::class, 'generate']);
+    Route::resource('/user', UserController::class);
+    Route::get('/items.csv', [ItemController::class, 'exportCSV'])->name('item.csv');
+    Route::get('/items/print', [ItemController::class, 'print'])->name('item.print');
+    Route::get('/items/pdf', [ItemController::class, 'pdf'])->name('item.pdf');
+    Route::get('/get-item-details/{id}', 'InventoryController@getItemDetails');
+    Route::get('/fetch-advices', [ItemController::class, 'fetchAdvices'])->name('fetchAdvices');
+    Route::get('/count-items', 'ItemController@countItems');
+    Route::get('/chart-data', 'ChartController@getData');
+
+
+      
+      
+
 
 });
 

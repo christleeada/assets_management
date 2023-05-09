@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
+            $table->binary('qrcode_image')->nullable();
             $table->string('item_name');
             $table->longText('image')->nullable();
             $table->unsignedBigInteger('post_status_id');
@@ -24,10 +25,9 @@ return new class extends Migration
             $table->string('upc_no')->nullable()->unique();
             $table->string('remarks')->nullable();
             $table->text('description');
+            $table->text('advice')->nullable();
             $table->integer('quantity');
-            $table->timestamp('date_purchased');
-            $table->timestamp('last_checked');
-            $table->text('recommendations')->nullable();
+            $table->date('date_purchased')->nullable()->default(null);
             $table->timestamps();
     
             $table->foreign('post_status_id')->references('id')->on('statuses');

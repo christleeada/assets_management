@@ -172,6 +172,11 @@ p.brief.big {
   font-style: normal;
   font-weight: 200;
 }
+.qr-code {
+  max-width: 50px;
+  max-height: 50px;
+}
+
 
 @media (min-width: 480px) {
   .page-header h1 {
@@ -212,4 +217,14 @@ div.hr-rule {
 .share-buttons {
   margin: 0 auto;
   text-align: center;
+}
+.notification-table-container {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 1;
+  background-color: white;
+  border: 1px solid #000000;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 10px;
 }

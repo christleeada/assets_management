@@ -21,7 +21,7 @@
                                     <div class="form-group row">
                                         <label for="date" class="col-sm-2 col-form-label">Date</label>
                                         <div class="col-sm-10">
-                                            <input type="text" name="date" value="{{ old('date', isset($inventory->date) ? $inventory->date : '') }}" class="form-control" id="date">
+                                            <input type="date" name="date" value="{{ old('date', isset($inventory->date) ? $inventory->date : '') }}" class="form-control" id="date">
                                         </div>
                                     </div>
 
@@ -68,11 +68,7 @@
                                         <thead>
                                             <tr class="headings">
                                                 <th class="column-title">Item Name</th>
-                                                <th class="column-title">Brand</th>
-                                                <th class="column-title">Description</th>
-                                                <th class="column-title">Unit Type </th>
-                                                <th class="column-title">SKU No </th>
-                                                <th class="column-title">Qty </th>
+                                    
                                                 <th class="column-title"><span class="nobr">Action</span></th>
                                             </tr>
                                         </thead>
@@ -101,12 +97,6 @@
             $('#table-item').append(`@include('layouts.dropdownItems.dropdown')`);
         });
 
-        $('select[name="Items"]').change(function(){
-            var selectedOption = $('option:selected', this);
-            var description = selectedOption.data('description');
-            var category = selectedOption.data('item_category');
-        $('input[name="description"]').val(description);
-        $('input[name="item_category"]').val(category);
-        });
+        
     });
 </script>

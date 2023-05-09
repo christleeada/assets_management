@@ -11,7 +11,7 @@
                     <br>
                     @if(isset($item))
                     <form method="post" action="{{ route('item.update', ['item' => $item->id]) }}" enctype='multipart/form-data' class="form-horizontal">
-                    @method('put')
+                    @method('PUT')
                     @else
                     <form method="post" action="{{ route('item.store') }}" enctype="multipart/form-data" class="form-horizontal">
                     @endif
@@ -26,7 +26,16 @@
                             <div class="form-group row">
                                 <label for="brand" class="col-sm-2 col-form-label">Brand</label>
                                 <div class="col-sm-10">
-                                    <input type="text" name="brand" value="{{ old('brand', isset($item->brand) ? $item->brand : '') }}" class="form-control" id="brand">
+                                <select name="brand" class="form-control" id="brand">
+                                <option value="Apple" {{ (old('brand', isset($item->brand) ? $item->brand : '') == 'Apple') ? 'selected' : '' }}>Apple</option>
+                                <option value="Samsung" {{ (old('brand', isset($item->brand) ? $item->brand : '') == 'Samsung') ? 'selected' : '' }}>Samsung</option>
+                                <option value="Dell" {{ (old('brand', isset($item->brand) ? $item->brand : '') == 'Dell') ? 'selected' : '' }}>Dell</option>
+                                <option value="Lenovo" {{ (old('brand', isset($item->brand) ? $item->brand : '') == 'Lenovo') ? 'selected' : '' }}>Lenovo</option>
+                                <option value="Asus" {{ (old('brand', isset($item->brand) ? $item->brand : '') == 'Asus') ? 'selected' : '' }}>Asus</option>
+                                <option value="HP" {{ (old('brand', isset($item->brand) ? $item->brand : '') == 'HP') ? 'selected' : '' }}>HP</option>
+                                <option value="Razer" {{ (old('brand', isset($item->brand) ? $item->brand : '') == 'Razer') ? 'selected' : '' }}>Razer</option>
+                                <option value="Others" {{ (old('brand', isset($item->brand) ? $item->brand : '') == 'Others') ? 'selected' : '' }}>Others</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -64,24 +73,14 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label for="item_category" class="col-sm-2 col-form-label">Status</label>
-                                <div class="col-sm-10">
-                                    <select name="item_category" class="form-control" id="item_category">
-                                        <option>Select Status</option>
-                                        @foreach ($statuses as $status)
-                                        <option value="{{ $status->id }}" {{ old('status', isset($item->status) ? $item->status : '') == $status->id ? 'selected' : '' }}>{{ $status->status }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
+                            
                             <div class="form-group row">
                                 <label for="unit_type" class="col-sm-2 col-form-label">Unit Type</label>
                                 <div class="col-sm-10">
                                     <select name="unit_type" class="form-control" id="unit_type">
                                     <option>Select Unit Type</option>
                                         @foreach ($unit_types as $unit_type)
-                                        <option value="{{ $unit_type->id }}" {{ old('unit_type', isset($unit_type->unit_type) ? $unit_type->unit_type : '') == $unit_type->id ? 'selected' : '' }}>{{ $unit_type->unit_type }}</option>
+                                        <option value="{{ $unit_type->id }}" {{ old('unit_type', isset($item->unit_type) ? $item->unit_type : '') == $unit_type->id ? 'selected' : '' }}>{{ $unit_type->unit_type }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -93,9 +92,9 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="purchase_date" class="col-sm-2 col-form-label">Purchase Date</label>
+                                <label for="date_purchased" class="col-sm-2 col-form-label">Purchase Date</label>
                                 <div class="col-sm-10">
-                                    <input type="date" name="purchase_date" value="{{ old('purchase_date', isset($item->purchase_date) ? $item->purchase_date : '') }}" class="form-control" id="purchase_date">
+                                    <input type="date" name="date_purchased" value="{{ old('date_purchased', isset($item->date_purchased) ? $item->date_purchased : '') }}" class="form-control" id="date_purchased">
                                 </div>
                             </div>
                             <div class="form-group row">

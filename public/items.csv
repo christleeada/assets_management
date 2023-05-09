@@ -1,0 +1,3 @@
+Name,"SKU No","UPC No",Price,Category,Quantity,"Unit Type","Date Purchased","Date Added","Last Checked",Status
+Macbook,131231232,5678910,50000.00,Computer,1,piece,,"2023-05-04 02:31:50",,Active
+Thinkcentre,131231235,5678965,30000.00,Computer,40,piece,,"2023-05-04 02:34:28",,Active

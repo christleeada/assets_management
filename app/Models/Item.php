@@ -4,6 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
+
+
+
 
 class Item extends Model
 {
@@ -22,10 +26,13 @@ class Item extends Model
                            'remarks',
                            'description',
                            'quantity',
-                           'purchase_date',
+                           'date_purchased',
+                           
+                           
                            
                            
                           ];
+                          
 
     public function status(){
         return $this->belongsTo(Status::class,'post_status_id', 'id');
@@ -42,5 +49,8 @@ class Item extends Model
     public function inventoryType(){
         return $this->belongsTo(InventoryType::class,'inventory_type', 'id');
     }
+    
+
+    
     
 }

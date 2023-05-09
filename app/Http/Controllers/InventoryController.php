@@ -46,13 +46,14 @@ class InventoryController extends Controller
        
         $validatedData = $request->validate([
             'inventory_type' => 'required',
-            'date' => 'required',
+            'date' => 'required|date',
             'location' => 'required',
             'remarks' => 'required',
             
             
 
         ]);
+        Inventory::create($validatedData);
     }
 
     /**
@@ -86,4 +87,11 @@ class InventoryController extends Controller
     {
         //
     }
+    public function getItemDetails($id)
+{
+    $item = Item::find($id);
+    return response()->json($item);
+}
+
+
 }
