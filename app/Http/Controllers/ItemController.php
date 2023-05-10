@@ -244,7 +244,7 @@ public static function generateAdviceForAllItems()
         ]);
     }
 
-    return response()->json('Advice generated for all items.');
+   
 }
 public function getMessages()
 {

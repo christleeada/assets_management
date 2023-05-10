@@ -13,15 +13,15 @@
           <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
           
            
-          
+          <button id="refreshButton">
+    <i class="fa fa-refresh"></i>
+  </button><button id="closeButton" class="fa fa-close"></button>
           <a class="dropdown-item" id="messagesButton">
           
   <i class="fa fa-envelope"></i> Messages
 </a>
 
-<button id="refreshButton">
-    <i class="fa fa-refresh"></i>
-  </button><button id="closeButton" class="fa fa-close"></button>
+
 <div id="messagesDropdown" class="dropdown-menu">
 
   

@@ -51,14 +51,11 @@ $(document).ready(function() {
             type: 'GET',
             dataType: 'html',
             success: function(response) {
-                // Display the advice message as an alert
-                alert(response);
-
-                // Reload the page to reflect the changes
+                // Remove the alert and directly reload the page
                 location.reload();
             },
             error: function() {
-                alert('Error occurred while fetching advice.');
+                alert('Error');
             }
         });
     });
