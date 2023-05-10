@@ -50,3 +50,4 @@
     </div>
 </x-app-layout>
 @include('layouts.scripts.inventorytype-script')
+@include('layouts.scripts.messages-script')

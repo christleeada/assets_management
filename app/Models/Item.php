@@ -27,6 +27,7 @@ class Item extends Model
                            'description',
                            'quantity',
                            'date_purchased',
+                           'advice'
                            
                            
                            

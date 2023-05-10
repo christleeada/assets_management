@@ -54,3 +54,4 @@
     </div>
 </x-app-layout>
 @include('layouts.scripts.location-script')
+@include('layouts.scripts.messages-script')

@@ -185,6 +185,8 @@ class ItemController extends Controller
     $base64QrCode = base64_encode($qrCode);
     $item->qrcode_image = $base64QrCode;
     $item->save();
+
+   
     
 
 
@@ -192,59 +194,73 @@ class ItemController extends Controller
 
     return redirect()->route('item.index')->with('success', 'Item created successfully.');
 }
-public static function generateForItem($id)
+
+
+public static function generateAdviceForAllItems()
 {
-    $item = Item::findOrFail($id);
+    $items = Item::all();
 
-    // Calculate the age of the device
-    $dateBought = Carbon::createFromFormat('Y-m-d', $item->date_purchased);
-    $ageInYears = $dateBought->diffInYears(Carbon::now());
+    foreach ($items as $item) {
+        // Calculate the age of the device
+        $dateBought = Carbon::createFromFormat('Y-m-d', $item->date_purchased);
+        $ageInYears = $dateBought->diffInYears(Carbon::now());
 
-    // Generate advice based on the age of the device
-    $advice = [];
+        // Generate advice based on the age of the device
+        $advice = [];
 
-    if ($item->item_category === 'Desktop Computer' && $ageInYears >= 5) {
-        $advice[] = [
-            'title' => 'Device lifespan',
-            'message' => 'Device has almost reached its lifespan. Check internals for dust and clean if are dirty or upgrade device.',
-        ];
+        if ($item->itemCategory->item_category === 'Desktop Computer' && $ageInYears >= 5) {
+            $advice = 
+                'Device has almost reached its lifespan. Check internals for dust and clean if they are dirty or upgrade device.'
+            ;
+        }
+
+        if ($item->itemCategory->item_category === 'Laptop' && $ageInYears >= 3) {
+            $advice = 
+                'Device has almost reached its lifespan. Consider upgrading your storage to SSD if HDD is still in use or upgrade device.'
+            ;
+        }
+
+        if ($item->itemCategory->item_category === 'Smartphone' && $ageInYears >= 2) {
+            $advice = 
+                'Device has almost reached its lifespan. Consider getting a new battery if your current one is not holding a charge or upgrade device.'
+            ;
+        }
+
+        if ($item->itemCategory->item_category === 'Tablet' && $ageInYears >= 3) {
+            $advice = 
+                'Device has almost reached its lifespan. Consider getting a new tablet case if you want to protect your device from drops and scratches or upgrade device.'
+            ;
+        }
+
+        if (empty($advice)) {
+            $advice = 
+                'Device in optimal condition.'
+            ;
+        }
+
+        // Save the advice to the database
+        $item->update([
+            'advice' => json_encode($advice),
+        ]);
     }
 
-    if ($item->item_category === 'Laptop' && $ageInYears >= 3) {
-        $advice[] = [
-            'title' => 'Device lifespan',
-            'message' => 'Device has almost reached its lifespan. Consider upgrading your storage to SSD if HDD is still in use or upgrade device.',
-        ];
-    }
-
-    if ($item->item_category === 'Smartphone' && $ageInYears >= 2) {
-        $advice[] = [
-            'title' => 'Device lifespan',
-            'message' => 'Device has almost reached its lifespan. Consider getting a new battery if your current one is not holding a charge or upgrade device.',
-        ];
-    }
-
-    if ($item->item_category === 'Tablet' && $ageInYears >= 3) {
-        $advice[] = [
-            'title' => 'Device lifespan',
-            'message' => 'Device has almost reached its lifespan. Consider getting a new tablet case if you want to protect your device from drops and scratches or upgrade device.',
-        ];
-    }
-
-    if (empty($advice)) {
-        $advice[] = [
-            'title' => 'No advice',
-            'message' => 'No advice',
-        ];
-    }
-
-    // Save the advice to the database
-    $item->update([
-        'advice' => json_encode($advice),
-    ]);
-
-    return $advice;
+    return response()->json('Advice generated for all items.');
 }
+public function getMessages()
+{
+    $messages = Item::select('item_name', 'advice')
+                    ->where('advice', '!=', '"Device in optimal condition."')
+                    ->get();
+
+    return response()->json(['messages' => $messages]);
+}
+
+
+
+
+
+
+
 
 
 

@@ -11,8 +11,32 @@
             <img src="{{asset('images/Loginlogo.png')}}" alt="">{{ Auth()->user()->first_name ?? ''}} {{ Auth()->user()->last_name ?? ''}}
           </a>
           <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+          
            
-            <a class="dropdown-item" id="notification-button">  <span class="badge badge-danger" id="notification-count">0</span><i class="fa fa-bell-o pull-right"></i>Notifications</a>
+          
+          <a class="dropdown-item" id="messagesButton">
+          
+  <i class="fa fa-envelope"></i> Messages
+</a>
+
+<button id="refreshButton">
+    <i class="fa fa-refresh"></i>
+  </button><button id="closeButton" class="fa fa-close"></button>
+<div id="messagesDropdown" class="dropdown-menu">
+
+  
+
+  <ul id="messagesList" class="list-unstyled">
+    
+    <!-- Generated dropdown list items will be inserted here -->
+  </ul>
+
+  
+</div>
+
+
+
+
             
             <a class="dropdown-item" href="" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-sign-out pull-right" ></i> Log Out</a>
             <form id="logout-form" action="{{route('logout')}}" method="POST" style="display: none;">
@@ -24,12 +48,24 @@
     </nav>
   </div>
 </div>
+<style>
+#messagesDropdown {
+  position: relative;
+}
 
+#closeButton {
+  position: absolute;
+  right: 10px;
+  border: none;
+  background: none;
+  color: #000;
+  font-size: 12px;
+  cursor: pointer;
+  
+}
+</style>
+@include('layouts.scripts.messages-script')
 
-<!-- Notification dropdown -->
-<div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown" id="notification-dropdown">
-  <!-- Dropdown content will be added dynamically with JavaScript -->
-</div>
 
 
  

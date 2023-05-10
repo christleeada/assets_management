@@ -100,3 +100,4 @@
         
     });
 </script>
+@include('layouts.scripts.messages-script')

@@ -54,6 +54,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/fetch-advices', [ItemController::class, 'fetchAdvices'])->name('fetchAdvices');
     Route::get('/count-items', 'ItemController@countItems');
     Route::get('/chart-data', 'ChartController@getData');
+    Route::get('/items/generateAdviceForAllItems', [ItemController::class, 'generateAdviceForAllItems'])->name('item.generateAdviceForAllItems');
+    Route::get('/items/messages', [ItemController::class, 'getMessages'])->name('item.getMessages');
+
+
+
 
 
       

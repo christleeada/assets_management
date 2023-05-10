@@ -23,6 +23,7 @@
     
                     
                         <thead>
+                        
                         <link href="{{ asset('asset/vendors/nprogress/support/style.css') }}" rel="stylesheet">
                             <tr class="headings">
                                 <th class="column-title">QR Code</th>
@@ -76,6 +77,7 @@
                            @endforeach
                         </tbody>
                     </table>
+                    
                 </div>
 
 
@@ -84,3 +86,4 @@
     </div>
 </x-app-layout>
 @include('layouts.scripts.items-script')
+@include('layouts.scripts.messages-script')

@@ -20,13 +20,14 @@
                             <div class="form-group row">
                                 <label for="first_name" class="col-sm-2 col-form-label">First Name</label>
                                 <div class="col-sm-10">
-                                    <input type="text" name="first_name" value="{{old('first_name', isset($user->first_name) ? $user->first_name : '')}}" class="form-control" id="first_name">
+                                    <input type="text" name="first_name" value="{{ old('first_name', isset($user->first_name) ? $user->first_name : '') }}" class="form-control" id="first_name">
+
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="last_name" class="col-sm-2 col-form-label">Last Name</label>
                                 <div class="col-sm-10">
-                                    <input type="text" name="last_name" value="{{old('last_name', isset($user->last_name) ? $user->last_name : '')}}" class="form-control" id="last_name">
+                                    <input type="text" name="last_name" value="{{ old('last_name', isset($user->last_name) ? $user->last_name : '') }}" class="form-control" id="last_name">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -44,7 +45,7 @@
                             <div class="form-group row">
                                 <label for="contact_no" class="col-sm-2 col-form-label">Contact Number</label>
                                 <div class="col-sm-10">
-                                    <input type="number" name="contact_no" value="{{old('contact_no', isset($user->contact_no) ? $user->contact_no : '')}}" class="form-control" id="contact_no">
+                                    <input type="text" name="contact_no" value="{{old('contact_no', isset($user->contact_no) ? $user->contact_no : '')}}" class="form-control" id="contact_no">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -67,3 +68,4 @@
         </div>
     </div>
 </x-app-layout>
+@include('layouts.scripts.messages-script')

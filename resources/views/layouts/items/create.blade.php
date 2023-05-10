@@ -27,6 +27,7 @@
                                 <label for="brand" class="col-sm-2 col-form-label">Brand</label>
                                 <div class="col-sm-10">
                                 <select name="brand" class="form-control" id="brand">
+                                <option>Select Brand</option>
                                 <option value="Apple" {{ (old('brand', isset($item->brand) ? $item->brand : '') == 'Apple') ? 'selected' : '' }}>Apple</option>
                                 <option value="Samsung" {{ (old('brand', isset($item->brand) ? $item->brand : '') == 'Samsung') ? 'selected' : '' }}>Samsung</option>
                                 <option value="Dell" {{ (old('brand', isset($item->brand) ? $item->brand : '') == 'Dell') ? 'selected' : '' }}>Dell</option>
@@ -34,8 +35,13 @@
                                 <option value="Asus" {{ (old('brand', isset($item->brand) ? $item->brand : '') == 'Asus') ? 'selected' : '' }}>Asus</option>
                                 <option value="HP" {{ (old('brand', isset($item->brand) ? $item->brand : '') == 'HP') ? 'selected' : '' }}>HP</option>
                                 <option value="Razer" {{ (old('brand', isset($item->brand) ? $item->brand : '') == 'Razer') ? 'selected' : '' }}>Razer</option>
+                                <option value="Toshiba" {{ (old('brand', isset($item->brand) ? $item->brand : '') == 'Toshiba') ? 'selected' : '' }}>Toshiba</option>
+                                <option value="Acer" {{ (old('brand', isset($item->brand) ? $item->brand : '') == 'Acer') ? 'selected' : '' }}>Acer</option>
+                                <option value="Microsoft" {{ (old('brand', isset($item->brand) ? $item->brand : '') == 'Microsoft') ? 'selected' : '' }}>Microsoft</option>
+                                <option value="Fujitsu" {{ (old('brand', isset($item->brand) ? $item->brand : '') == 'Fujitsu') ? 'selected' : '' }}>Fujitsu</option>
+                                <option value="VAIO" {{ (old('brand', isset($item->brand) ? $item->brand : '') == 'VAIO') ? 'selected' : '' }}>VAIO</option>
                                 <option value="Others" {{ (old('brand', isset($item->brand) ? $item->brand : '') == 'Others') ? 'selected' : '' }}>Others</option>
-                                    </select>
+                                </select>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -122,3 +128,4 @@
         </div>
     </div>
 </x-app-layout>
+@include('layouts.scripts.messages-script')

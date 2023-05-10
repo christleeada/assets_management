@@ -63,7 +63,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('layouts.users.create');
+        return view('layouts.users.create', compact('user'));
     }
 
     /**
