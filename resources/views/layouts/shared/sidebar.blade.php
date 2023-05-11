@@ -1,7 +1,7 @@
 <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="{{route('dashboard')}}" class="site_title">  <i class='fa fa-institution'></i><span>CCS Assets</span></a>
+              <a href="{{route('dashboard')}}" class="site_title">  <i class='fa fa-desktop'></i><span>CCS Assets</span></a>
             </div>
 
             <div class="clearfix"></div>

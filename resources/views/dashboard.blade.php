@@ -44,6 +44,7 @@ $brandCounts = DB::table('items')
 <style>
   body {
     overflow: hidden;
+    height: 100%;
   }
 </style>
 
