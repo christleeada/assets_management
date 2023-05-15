@@ -15,14 +15,13 @@ return new class extends Migration
             $table->id();
             $table->binary('qrcode_image')->nullable();
             $table->string('item_name');
+            $table->string('purchased_as');
             $table->longText('image')->nullable();
             $table->unsignedBigInteger('post_status_id');
             $table->unsignedBigInteger('unit_type');
             $table->unsignedBigInteger('item_category');
             $table->decimal('price', 8, 2);
             $table->string('brand');
-            $table->string('sku_no')->nullable()->unique();
-            $table->string('upc_no')->nullable()->unique();
             $table->string('remarks')->nullable();
             $table->text('description');
             $table->text('advice')->nullable();

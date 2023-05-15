@@ -27,6 +27,7 @@
                                 <th class="column-title">Contact Number </th>
                                 <th class="column-title">Email</th>
                                 <th class="column-title">Date created</th>
+                                <th class="column-title">Role</th>
                                 <th class="column-title"><span class="nobr">Action</span></th>
                             </tr>
                         </thead>
@@ -41,7 +42,8 @@
                                 <td class=" ">{{$value->address}}</td>
                                 <td class=" ">{{$value->contact_no}}</td>
                                 <td class=" ">{{$value->email}}</td>
-                                <td class=" ">{{$value->created_at}}</td>      
+                                <td class=" ">{{$value->created_at}}</td>
+                                <td class=" ">{{$value->role}}</td>      
                                 <td class=" ">
                                     <div class="btn-group">
                                         <a href="{{ route('user.edit', $value->id) }}" class="btn btn-info m-1 btn-sm rounded" title="Edit"><i class="fa fa-edit" small>&nbsp Edit</i></a>

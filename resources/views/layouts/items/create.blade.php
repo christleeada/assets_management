@@ -50,18 +50,8 @@
                                     <input type="text" name="description" value="{{ old('description', isset($item->description) ? $item->description : '') }}" class="form-control" id="description">
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label for="sku_no" class="col-sm-2 col-form-label">SKU No</label>
-                                <div class="col-sm-10">
-                                    <input type="text" name="sku_no" value="{{ old('sku_no', isset($item->sku_no) ? $item->sku_no : '') }}" class="form-control" id="sku_no">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="upc_no" class="col-sm-2 col-form-label">UPC No</label>
-                                <div class="col-sm-10">
-                                    <input type="text" name="upc_no" value="{{ old('upc_no', isset($item->upc_no) ? $item->upc_no : '') }}" class="form-control" id="upc_no">
-                                </div>
-                            </div>
+                           
+                            
                             <div class="form-group row">
                                 <label for="price" class="col-sm-2 col-form-label">Price</label>
                                 <div class="col-sm-10">
@@ -101,6 +91,17 @@
                                 <label for="date_purchased" class="col-sm-2 col-form-label">Purchase Date</label>
                                 <div class="col-sm-10">
                                     <input type="date" name="date_purchased" value="{{ old('date_purchased', isset($item->date_purchased) ? $item->date_purchased : '') }}" class="form-control" id="date_purchased">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="purchased_as" class="col-sm-2 col-form-label">Condition</label>
+                                <div class="col-sm-10">
+                                <select name="purchased_as" class="form-control" id="purchased_as">
+                                <option>Select</option>
+                                <option value="New" {{ (old('purchased_as', isset($item->purchased_as) ? $item->purchased_as : '') == 'New') ? 'selected' : '' }}>New</option>
+                                <option value="Used" {{ (old('purchased_as', isset($item->purchased_as) ? $item->purchased_as : '') == 'Used') ? 'selected' : '' }}>Used</option>
+                               
+                                </select>
                                 </div>
                             </div>
                             <div class="form-group row">

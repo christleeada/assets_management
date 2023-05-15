@@ -75,14 +75,12 @@ class ItemController extends Controller
 
         $filename = "items.csv";
         $handle = fopen($filename, 'w+');
-        fputcsv($handle, array('QR Code', 'Name', 'SKU No', 'UPC No', 'Price', 'Category', 'Quantity', 'Unit Type', 'Date Purchased', 'Date Added', 'Last Checked', 'Status'));
+        fputcsv($handle, array('QR Code', 'Name', 'Price', 'Category', 'Quantity', 'Unit Type', 'Date Purchased', 'Date Added', 'Last Checked', 'Status'));
 
         foreach ($data as $value) {
             fputcsv($handle, array(
                 $value->qrcode_image,
                 $value->item_name,
-                $value->sku_no,
-                $value->upc_no,
                 $value->price,
                 $value->itemCategory->item_category,
                 $value->quantity,
@@ -135,15 +133,14 @@ class ItemController extends Controller
         'brand' => 'required',
         'description' => 'required',
         'post_status_id' => 'required',
-        'sku_no' => 'required',
-        'upc_no' => 'required',
         'price' => 'required',
         'item_category' => 'required',
         'unit_type' => 'required',
         'quantity' => 'required',
         'date_purchased' => 'required|date',
-        'remarks' => 'required',
+        'remarks' => 'nullable',
         'image' => 'required|image',
+        'purchased_as' => 'required',
     ]);
 
     // Save the item to the database
@@ -162,17 +159,20 @@ class ItemController extends Controller
    
     
     // Generate the QR code
-    $date_purchased = Carbon::parse($item->date_purchased);
-    $text = "Item Name: " . $item->item_name . "\n" .
-            "Brand: " . $item->brand . "\n" .
-            "Price: " . $item->price . "\n" .
-            "Date Purchased: " . $date_purchased->format('Y-m-d') . "\n";
-    
+    $itemLink = route('item.show', $item->id);
+
     // Generate the QR code as a binary string
     $qrCode = QrCode::format('png')
-                     ->size(400)
-                     ->errorCorrection('H')
-                     ->generate($text);
+                    ->size(400)
+                    ->errorCorrection('H')
+                    ->generate($itemLink);
+
+    // Get the item name without any spaces
+    $itemName = str_replace(' ', '_', $item->item_name);
+
+    // Save the QR code as a PNG file with the item name in the filename
+    $qrCodePath = 'images/qrcode_images/' . $itemName . '_qrcode.png';
+    file_put_contents($qrCodePath, $qrCode);
     
     // Get the item name without any spaces
     $itemName = str_replace(' ', '_', $item->item_name);
@@ -205,37 +205,39 @@ public static function generateAdviceForAllItems()
         $dateBought = Carbon::createFromFormat('Y-m-d', $item->date_purchased);
         $ageInYears = $dateBought->diffInYears(Carbon::now());
 
-        // Generate advice based on the age of the device
+        // Fetch the estimated lifespan from the associated item category
+        $estimatedLifespan = $item->itemCategory->estimated_lifespan;
+
+        // Adjust the estimated lifespan based on the purchased_as value
+        if ($item->purchased_as === 'Used') {
+            $estimatedLifespan -= 2;
+        }
+
+        // Generate advice based on the age of the device and estimated lifespan
         $advice = [];
 
-        if ($item->itemCategory->item_category === 'Desktop Computer' && $ageInYears >= 5) {
-            $advice = 
-                'Device has almost reached its lifespan. Check internals for dust and clean if they are dirty or upgrade device.'
-            ;
-        }
+        if ($ageInYears >= $estimatedLifespan) {
+            $advice = 'Device has almost reached its lifespan.';
 
-        if ($item->itemCategory->item_category === 'Laptop' && $ageInYears >= 3) {
-            $advice = 
-                'Device has almost reached its lifespan. Consider upgrading your storage to SSD if HDD is still in use or upgrade device.'
-            ;
-        }
-
-        if ($item->itemCategory->item_category === 'Smartphone' && $ageInYears >= 2) {
-            $advice = 
-                'Device has almost reached its lifespan. Consider getting a new battery if your current one is not holding a charge or upgrade device.'
-            ;
-        }
-
-        if ($item->itemCategory->item_category === 'Tablet' && $ageInYears >= 3) {
-            $advice = 
-                'Device has almost reached its lifespan. Consider getting a new tablet case if you want to protect your device from drops and scratches or upgrade device.'
-            ;
-        }
-
-        if (empty($advice)) {
-            $advice = 
-                'Device in optimal condition.'
-            ;
+            // Add specific advice based on the item category
+            switch ($item->itemCategory->item_category) {
+                case 'Desktop Computer':
+                    $advice .= ' Check internals for dust and clean if they are dirty or upgrade device.';
+                    break;
+                case 'Laptop':
+                    $advice .= ' Consider upgrading your storage to SSD if HDD is still in use or upgrade device.';
+                    break;
+                case 'Smartphone':
+                    $advice .= ' Consider getting a new battery if your current one is not holding a charge or upgrade device.';
+                    break;
+                case 'Tablet':
+                    $advice .= ' Consider getting a new tablet case if you want to protect your device from drops and scratches or upgrade device.';
+                    break;
+                default:
+                    break;
+            }
+        } else {
+            $advice = 'Device in optimal condition.';
         }
 
         // Save the advice to the database
@@ -243,9 +245,8 @@ public static function generateAdviceForAllItems()
             'advice' => json_encode($advice),
         ]);
     }
-
-   
 }
+
 public function getMessages()
 {
     $messages = Item::select('item_name', 'advice')
@@ -254,6 +255,14 @@ public function getMessages()
 
     return response()->json(['messages' => $messages]);
 }
+public function guestPage()
+{
+    // Retrieve the data you want to display in the table
+    $data = Item::all(); // Replace `Item` with your actual model name or query logic
+    
+    return view('welcome', ['data' => $data]);
+}
+
 
 
 
@@ -272,9 +281,12 @@ public function getMessages()
     /**
      * Display the specified resource.
      */
-    public function show(Item $item)
+    public function show($id)
     {
-        //
+        $item = Item::findOrFail($id);
+        
+    
+        return view('layouts.items.show', compact('item'));
     }
 
     /**
@@ -312,10 +324,9 @@ public function getMessages()
             'item_category' => 'nullable',
             'description' => 'nullable',
             'quantity' => 'nullable',
-            'sku_no' => 'nullable',
-            'upc_no' => 'nullable',
             'remarks' => 'nullable',
             'date_purchased' => 'nullable|date',
+            'purchased_as' => 'nullable',
             
         ]);
 

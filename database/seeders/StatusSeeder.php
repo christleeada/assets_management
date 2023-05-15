@@ -16,19 +16,7 @@ class StatusSeeder extends Seeder
         Status::insert(
             [
                 ['status' => 'Active'],
-                ['status' => 'Inactive'],
-                ['status' => 'Pending'],
-                ['status' => 'Approved'],
-                ['status' => 'Cancelled'],
-                ['status' => 'Lost'],
-                ['status' => 'Used'],
-                ['status' => 'Posted'],
-                ['status' => 'Unpost'],
-                ['status' => 'Yes'],
-                ['status' => 'No'],
-                ['status' => 'On stock'],
-                ['status' => 'Out of stock'],
-                ['status' => 'Refill the stock'],
+                ['status' => 'Disposed'],
                 ['status' => 'Under maintenance'],
                 ['status' => 'Need maintenance'],
             ]

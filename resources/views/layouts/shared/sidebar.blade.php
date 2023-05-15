@@ -9,7 +9,7 @@
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
-                <img src="{{asset('images/Loginlogo.png')}}" alt="..." class="img-circle profile_img">
+                <img src="{{asset('images/userprof.png')}}" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
@@ -47,8 +47,9 @@
                       <li><a href="{{route('department.index')}}">Departments</a></li>
                       <li><a href="{{route('location.index')}}">Locations</a></li>
                       <li><a href="{{route('inventory_type.index')}}">Inventory Types</a></li>
-                      <li><a href="{{route('item_category.index')}}">Item Categories</a></li>
+                      <li><a href="{{route('item_category.index')}}">Asset Categories</a></li>
                       <li><a href="{{route('unit_type.index')}}">Unit Types</a></li>
+                      
                       
                     </ul>
                   </li>

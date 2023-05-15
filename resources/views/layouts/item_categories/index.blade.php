@@ -14,8 +14,8 @@
                     <table id="itemcategoryTable" class="table table-striped jambo_table bulk_action">
                         <thead>
                             <tr class="headings">
-                                <th class="column-title">Item Category</th>
-                                <th class="column-title">Status </th>
+                                <th class="column-title">Asset Category</th>
+                                <th class="column-title">Estimated Lifespan </th>
                                 <th class="column-title"><span class="nobr">Action</span></th>
                             </tr>
                         </thead>
@@ -24,7 +24,7 @@
                             @foreach($data as $value)
                             <tr class="even pointer">
                                 <td class=" ">{{$value->item_category}}</td>
-                                <td class=" "> <span class="badge badge-secondary">{{$value->status->status}}</span></td>
+                                <td class=" ">{{$value->estimated_lifespan}}</td>
                                 <td class=" ">
                                     <div class="btn-group">
                                         <a href="{{ route('item_category.edit', $value->id) }}" class="btn btn-info m-1 btn-sm rounded" title="Edit"><i class="fa fa-edit" small>&nbsp Edit</i></a>

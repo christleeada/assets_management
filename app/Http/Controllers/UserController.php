@@ -38,6 +38,7 @@ class UserController extends Controller
             'contact_no' => 'required',
             'email' => 'required',
             'password' => 'required',
+            'role' => 'required',
         ]);
     
         // $validatedData['post_status_id'] = $request->input('post_status_id', 1);
@@ -80,6 +81,7 @@ class UserController extends Controller
             'contact_no' => 'nullable',
             'email' => 'nullable',
             'password' => 'nullable',
+            'role' => 'required',
             
         ]);
         $user->update($validatedData);

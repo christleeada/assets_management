@@ -107,7 +107,7 @@ $brandCounts = DB::table('items')
           </div>
         </div>
 
-        <canvas id="myChart" style="width:100%;max-width:1000px"></canvas>
+        <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
 
         <script>
           var xValues = ["Apple", "Lenovo", "Dell", "Samsung", "Asus", "HP", "Razer", "Toshiba", "Acer", "Microsoft", "Fujitsu", "VAIO", "Others"];
@@ -126,7 +126,7 @@ $brandCounts = DB::table('items')
         <?php echo $brandCounts['VAIO'] ?? 0; ?>,
         <?php echo $brandCounts['Others'] ?? 0; ?>
     ];
-    var barColors = ["grey", "red", "blue", "violet", "brown", "cyan", "green", "black", "orange", "purple", "yellow", "pink", "lime"];
+    var barColors = ["#4C3A51", "#1D267D", "#16003B", "#570530", "brown", "cyan", "green", "black", "orange", "purple", "yellow", "pink", "#2E4F4F"];
 
           new Chart("myChart", {
             type: "bar",

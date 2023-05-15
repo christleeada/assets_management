@@ -22,7 +22,7 @@ $(document).ready(function() {
             }
           }
         } else {
-          var noMessageItem = '<li>No messages</li>';
+          var noMessageItem = '<li>No notifications</li>';
           $('#messagesList').append(noMessageItem);
         }
 
@@ -30,7 +30,7 @@ $(document).ready(function() {
         $('#messagesDropdown').dropdown('show');
       },
       error: function() {
-        alert('Error occurred while fetching messages.');
+        alert('Error occurred while fetching notifications.');
       }
     });
   });
@@ -53,10 +53,8 @@ $(document).ready(function() {
             success: function(response) {
                 // Remove the alert and directly reload the page
                 location.reload();
-            },
-            error: function() {
-                alert('Error');
             }
+            
         });
     });
 });

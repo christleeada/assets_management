@@ -28,8 +28,7 @@
                             <tr class="headings">
                                 <th class="column-title">QR Code</th>
                                 <th class="column-title">Name</th>
-                                <th class="column-title">SKU No</th>
-                                <th class="column-title">UPC No</th>
+                                
                                 <th class="column-title">Price</th>
                                 <th class="column-title">Category</th>
                                 <th class="column-title">Quantity </th>
@@ -44,11 +43,10 @@
 
                         <tbody>
                             @foreach($data as $value)
-                            <tr class="even pointer">
-                            <td><img class="qr-code" src="data:image/png;base64,{{ $value->qrcode_image }}" alt="QR Code"></td>
+                            <tr class="even pointer" onclick="window.location='{{ route('item.show', $value->id) }}'">
+                                <td><img class="qr-code" src="data:image/png;base64,{{ $value->qrcode_image }}" alt="QR Code"></td>
                                 <td class=" ">{{$value->item_name}}</td>
-                                <td class=" ">{{$value->sku_no}}</td>
-                                <td class=" ">{{$value->upc_no}}</td>
+                                
                                 <td class=" ">₱{{$value->price}}</td>
                                 <td class=" ">{{$value->itemCategory->item_category}}</td>
                                 <td class=" ">{{$value->quantity}}</td>

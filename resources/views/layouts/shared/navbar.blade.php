@@ -8,7 +8,7 @@
       <ul class=" navbar-right">
         <li class="nav-item dropdown open" style="padding-left: 15px;">
           <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-            <img src="{{asset('images/Loginlogo.png')}}" alt="">{{ Auth()->user()->first_name ?? ''}} {{ Auth()->user()->last_name ?? ''}}
+            <img src="{{asset('images/userprof.png')}}" alt="">{{ Auth()->user()->first_name ?? ''}} {{ Auth()->user()->last_name ?? ''}}
           </a>
           <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
           
@@ -18,7 +18,7 @@
   </button><button id="closeButton" class="fa fa-close"></button>
           <a class="dropdown-item" id="messagesButton">
           
-  <i class="fa fa-envelope"></i> Messages
+  <i class="fa fa-bell"></i> Notificiations
 </a>
 
 

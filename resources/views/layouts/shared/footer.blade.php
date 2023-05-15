@@ -1,8 +1,9 @@
-  <!-- footer content -->
-  <footer>
-          <div class="pull-right">
-            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
-          </div>
-          <div class="clearfix"></div>
-        </footer>
-        <!-- /footer content -->
+<footer>
+  <div class="pull-right">
+      © Christ Lee Ada @<?php
+        $year = date("Y");
+        echo $year; ?>
+  </div>
+  <div class="clearfix"></div>
+</footer>
+<!-- /footer content -->

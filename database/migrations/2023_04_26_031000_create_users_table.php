@@ -26,6 +26,7 @@ return new class extends Migration
             $table->rememberToken();
             $table->unsignedBigInteger('post_status_id')->nullable();
             $table->foreign('post_status_id')->references('id')->on('statuses');
+            $table->string('role')->nullable();
             $table->timestamps();
         });
     }

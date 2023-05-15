@@ -9,7 +9,7 @@ class ItemCategory extends Model
 {
     use HasFactory;
     
-    protected $fillable = ['item_category','post_status_id'];
+    protected $fillable = ['item_category','estimated_lifespan','post_status_id'];
     
     public function status(){
         return $this->belongsTo(Status::class,'post_status_id', 'id');

@@ -27,7 +27,9 @@ class Item extends Model
                            'description',
                            'quantity',
                            'date_purchased',
-                           'advice'
+                           'purchased_as',
+                           'advice',
+                           'estimated_lifespan',
                            
                            
                            
@@ -50,6 +52,10 @@ class Item extends Model
     public function inventoryType(){
         return $this->belongsTo(InventoryType::class,'inventory_type', 'id');
     }
+    public function getEstimatedLifespanAttribute()
+{
+    return $this->itemCategory->estimated_lifespan;
+}
     
 
     

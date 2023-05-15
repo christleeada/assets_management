@@ -60,6 +60,18 @@
                                     <input type="password" name="password" value="{{old('password', isset($user->password) ? $user->password : '')}}" class="form-control" id="password">
                                 </div>
                             </div>
+                            <div class="form-group row">
+                                <label for="role" class="col-sm-2 col-form-label">User Role</label>
+                                <div class="col-sm-10">
+                                <select name="role" class="form-control" id="role">
+                                <option>Select User Role</option>
+                                <option value="admin" {{ (old('role', isset($item->role) ? $item->role : '') == 'admin') ? 'selected' : '' }}>Admin</option>
+                                <option value="staff" {{ (old('role', isset($item->role) ? $item->role : '') == 'staff') ? 'selected' : '' }}>Staff</option>
+                                <option value="guest" {{ (old('role', isset($item->role) ? $item->role : '') == 'admin') ? 'selected' : '' }}>Guest</option>
+                                
+                                </select>
+                                </div>
+                            </div>
                             <button  type="" class="btn btn-primary float-sm-right">Add</button>
                             <a  href="{{route('user.index')}}"class="btn btn-warning float-sm-left">Cancel</a>
                         </form>

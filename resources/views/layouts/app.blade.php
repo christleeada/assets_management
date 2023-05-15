@@ -40,7 +40,7 @@
             <div class="main_container">
                @include('layouts.shared.sidebar')
                @include('layouts.shared.navbar')
-                //main content
+                
                 <div class="right_col" role="main">
                 <main>
                     {{ $slot }}

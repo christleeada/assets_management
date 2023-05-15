@@ -37,6 +37,7 @@ class ItemCategoryController extends Controller
        
         $validatedData = $request->validate([
             'item_category' => 'required',
+            'estimated_lifespan' => 'required',
             'post_status_id' => 'required',
         ]);
     
@@ -76,6 +77,7 @@ class ItemCategoryController extends Controller
        
         $validatedData = $request->validate([
             'item_category' => 'required',
+            'estimated_lifespan' => 'nullable',
             'post_status_id' => 'required',
         ]);
     
