@@ -159,7 +159,7 @@ class ItemController extends Controller
    
     
     // Generate the QR code
-    $itemLink = route('item.show', $item->id);
+    $itemLink = route('item.showDetails', $item->id);
 
     // Generate the QR code as a binary string
     $qrCode = QrCode::format('png')
@@ -288,6 +288,11 @@ public function guestPage()
     
         return view('layouts.items.show', compact('item'));
     }
+    public function showDetails($id)
+{
+    $item = Item::findOrFail($id);
+    return view('layouts.items.details', compact('item'));
+}
 
     /**
      * Show the form for editing the specified resource.
