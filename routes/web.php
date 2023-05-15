@@ -37,8 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/', [ItemController::class, 'guestPage'])->name('guest.page')->withoutMiddleware(['auth']);
-    Route::get('/item/{id}', [ItemController::class, 'show'])->name('item.show')->withoutMiddleware(['auth']);
+    
 
 
 
@@ -56,6 +55,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/items.csv', [ItemController::class, 'exportCSV'])->name('item.csv')->withoutMiddleware(['auth']);
     Route::get('/items/print', [ItemController::class, 'print'])->name('item.print')->withoutMiddleware(['auth']);
     Route::get('/items/pdf', [ItemController::class, 'pdf'])->name('item.pdf')->withoutMiddleware(['auth']);
+    Route::get('/', [ItemController::class, 'guestPage'])->name('guest.page')->withoutMiddleware(['auth']);
+    Route::get('/item/{id}', [ItemController::class, 'show'])->name('item.show')->withoutMiddleware(['auth']);
     Route::get('/get-item-details/{id}', 'InventoryController@getItemDetails');
     Route::get('/fetch-advices', [ItemController::class, 'fetchAdvices'])->name('fetchAdvices');
     Route::get('/items/generateAdviceForAllItems', [ItemController::class, 'generateAdviceForAllItems'])->name('item.generateAdviceForAllItems');
