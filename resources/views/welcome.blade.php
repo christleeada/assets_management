@@ -47,7 +47,7 @@
 
                         <tbody>
                             @foreach($data as $value)
-                            <tr class="even pointer" onclick="window.location='{{ route('item.show', $value->id) }}'" data-item-id="{{ $value->id }}">
+                            <tr class="even pointer" onclick="window.location='{{ route('item.showDetails', $value->id) }}'" data-item-id="{{ $value->id }}">
                                 <td><img class="qr-code" src="data:image/png;base64,{{ $value->qrcode_image }}" alt="QR Code"></td>
                                 <td class=" ">
                                 <a href="{{ route('item.show', $value->id) }}" title="{{ $value->item_name }}">{{ $value->item_name }}</a>
