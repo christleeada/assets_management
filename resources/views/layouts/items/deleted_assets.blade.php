@@ -4,11 +4,7 @@
         <div class="x_panel">
             <div class="x_content">
 
-                <a href="{{route('item.create')}}" class="btn btn-primary">
-                    <i class="fa fa-plus"></i>
-                    <span class="vr"></span>
-                    Add New
-                </a>
+                
 
                 <div class="table-responsive">
 
