@@ -65,9 +65,9 @@
                                 <div class="col-sm-10">
                                 <select name="role" class="form-control" id="role">
                                 <option>Select User Role</option>
-                                <option value="admin" {{ (old('role', isset($item->role) ? $item->role : '') == 'admin') ? 'selected' : '' }}>Admin</option>
-                                <option value="staff" {{ (old('role', isset($item->role) ? $item->role : '') == 'staff') ? 'selected' : '' }}>Staff</option>
-                                <option value="guest" {{ (old('role', isset($item->role) ? $item->role : '') == 'admin') ? 'selected' : '' }}>Guest</option>
+                                <option value="Admin" {{ (old('role', isset($item->role) ? $item->role : '') == 'Admin') ? 'selected' : '' }}>Admin</option>
+                                <option value="Admin Officer" {{ (old('role', isset($item->role) ? $item->role : '') == 'Admin Officer') ? 'selected' : '' }}>Admin Officer</option>
+                                <option value="Staff" {{ (old('role', isset($item->role) ? $item->role : '') == 'Staff') ? 'selected' : '' }}>Staff</option>
                                 
                                 </select>
                                 </div>

@@ -28,6 +28,8 @@ return new class extends Migration
             $table->integer('quantity');
             $table->date('date_purchased')->nullable()->default(null);
             $table->timestamps();
+            $table->softDeletes();
+
     
             $table->foreign('post_status_id')->references('id')->on('statuses');
             $table->foreign('unit_type')->references('id')->on('unit_types');
@@ -42,5 +44,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('items');
+        
     }
 };

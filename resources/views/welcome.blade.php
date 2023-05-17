@@ -49,7 +49,7 @@
                 </thead>
                 <tbody>
                     @foreach($data as $value)
-                    <tr class="even pointer" onclick="window.location='{{ route('item.show', $value->id) }}'">
+                    <tr class="even pointer" onclick="window.location='{{ route('item.showDetails', $value->id) }}'">
                         <td><img class="qr-code" src="data:image/png;base64,{{ $value->qrcode_image }}" alt="QR Code" style="height:80px;width:80px;"></td>
                         <td class="">{{ $value->item_name }}</td>
                         <td class="">₱{{ $value->price }}</td>

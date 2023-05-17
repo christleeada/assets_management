@@ -16,7 +16,19 @@
                     <form method="post" action="{{ route('item.store') }}" enctype="multipart/form-data" class="form-horizontal">
                     @endif
                     @csrf
-                           
+                    <div class="form-group row">
+                            <label for="post_status_id" class="col-sm-2 col-form-label">Status</label>
+                            <div class="col-sm-10">
+                                <select name="post_status_id" class="form-control" id="post_status_id">
+                                    <option>Select Status</option>
+                                    @foreach ($statuses as $status)
+                                        <option value="{{ $status->id }}" {{ old('post_status_id', isset($item->post_status_id) ? $item->post_status_id : '') == $status->id ? 'selected' : '' }}>
+                                            {{ $status->status }} <!-- Replace "name" with the actual column name that represents the status name in the statuses table -->
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                     <div class="form-group row">
                                 <label for="item_name" class="col-sm-2 col-form-label">Name</label>
                                 <div class="col-sm-10">

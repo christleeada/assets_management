@@ -91,5 +91,8 @@
         <!-- Custom Theme Scripts -->
         <script src="{{URL::asset('asset/build/js/custom.min.js')}}"></script>
         <script src="{{URL::asset('asset/DataTables/datatables.min.js')}}"></script>
+
+        <!-- Magnifier -->
+        <script src="{{URL::asset('asset/vendors/magnifier.js/magnifier.js')}}"></script>
     </body>
 </html>

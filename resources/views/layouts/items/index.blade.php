@@ -11,6 +11,10 @@
                 </a>
 
                 <div class="table-responsive">
+
+                <div class="magnifier-container">
+                <div class="magnifier"></div>
+                </div>
                     <table id="itemTable" class="table table-striped jambo_table bulk_action">
                     
         @csrf
@@ -37,15 +41,17 @@
                                 <th class="column-title">Date Added</th>
                                 
                                 <th class="column-title">Status</th>
-                                <th class="column-title"><span class="nobr">Action</span></th>
+                                <th class="column-title"><span class="nobr"></span></th>
                             </tr>
                         </thead>
 
                         <tbody>
                             @foreach($data as $value)
-                            <tr class="even pointer" onclick="window.location='{{ route('item.show', $value->id) }}'">
+                            <tr class="even pointer" onclick="window.location='{{ route('item.show', $value->id) }}'" data-item-id="{{ $value->id }}">
                                 <td><img class="qr-code" src="data:image/png;base64,{{ $value->qrcode_image }}" alt="QR Code"></td>
-                                <td class=" ">{{$value->item_name}}</td>
+                                <td class=" ">
+                                <a href="{{ route('item.show', $value->id) }}" title="{{ $value->item_name }}">{{ $value->item_name }}</a>
+                            </td>
                                 
                                 <td class=" ">₱{{$value->price}}</td>
                                 <td class=" ">{{$value->itemCategory->item_category}}</td>
@@ -53,27 +59,49 @@
                                 <td class=" ">{{$value->unitType->unit_type}}</td>
                                 <td class=" ">{{$value->date_purchased}}</td>
                                 <td class=" ">{{$value->created_at}}</td>
-                                <td class=" "> <span class="badge badge-secondary">{{$value->status->status}}</span></td>        
+                                <td class=""> 
+                                @if($value->post_status_id === 4)
+                                    <span class="badge badge-warning">{{ $statuses->find($value->post_status_id)->status }}</span>
+                                @elseif($value->post_status_id === 3)
+                                    <span class="badge badge-primary">{{ $statuses->find($value->post_status_id)->status }}</span>
+                                @elseif($value->post_status_id === 2)
+                                    <span class="badge badge-secondary">{{ $statuses->find($value->post_status_id)->status }}</span>
+                                @elseif($value->post_status_id === 1)
+                                    <span class="badge badge-success">{{ $statuses->find($value->post_status_id)->status }}</span>
+                                
+                                @endif
+
+                                </td>      
                                 <td class=" ">
                                     <div class="btn-group">
-                                        <a href="{{ route('item.edit', $value->id) }}" class="btn btn-info m-1 btn-sm rounded" title="Edit"><i class="fa fa-edit" small>&nbsp Edit</i></a>
-
-                                        <form action="{{ route('item.destroy', $value->id) }}" method="POST">
-
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-danger delete-header m-1 btn-sm rounded" title="Delete"><i class="fa fa-trash" small>&nbsp Delete</i></button>
-                                        </form>
-                                        
-                                    </div>
+                                    @if($value->post_status_id === 4)
                                     
+                                    <button class="btn btn-success delete-header m-1 btn-sm rounded" title="Fixed">
+                                            <i class="fa fa-wrench sm" ></i>
+                                        </button>
+                                    @endif
+                                        <a href="{{ route('item.edit', $value->id) }}" class="btn btn-info m-1 btn-sm rounded" title="Edit">
+                                            <i class="fa fa-edit sm"></i>
+                                        </a>
+                                        <form action="{{ route('item.markAsDeleted', $value->id) }}" method="POST" style="display: inline;">
+                                        @method('PUT')
+                                        @csrf
+                                        <button class="btn btn-danger delete-header m-1 btn-sm rounded" title="Delete">
+                                            <i class="fa fa-trash sm" ></i>
+                                        </button>
+                                    </form>
 
+
+
+
+                                    </div>
                                 </td>
                                 </td>
                             </tr>
                             
                            @endforeach
                         </tbody>
+
                     </table>
                     
                 </div>
@@ -85,3 +113,16 @@
 </x-app-layout>
 @include('layouts.scripts.items-script')
 @include('layouts.scripts.messages-script')
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        new Magnifier({
+            magnifier: ".magnifier",
+            container: ".magnifier-container",
+            cursor: "crosshair",
+            zoom: 3,
+            zoomable: true
+        });
+    });
+</script>
+
+

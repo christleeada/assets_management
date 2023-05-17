@@ -23,10 +23,10 @@ class UserSeeder extends Seeder
             'email' => 'admin@gmail.com',
             'password' => bcrypt('admin123'),
             'post_status_id' => 1,
-            'role' => 'admin',
+            'role' => 'Admin',
         ]);
         
-        $user->assignRole('Admin');
+        
         
     }
 }

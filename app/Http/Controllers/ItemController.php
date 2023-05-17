@@ -16,6 +16,10 @@ use Carbon\Carbon;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
+use App\Helpers\LogHelper;
+use App\Models\Log;
+
 
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
@@ -27,19 +31,14 @@ class ItemController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        
-        $data = Item::with('status', 'itemCategory', 'unitType', 'inventoryType')->get();
-        
+{
+    $data = Item::with('status', 'itemCategory', 'unitType', 'inventoryType')->withoutTrashed()->get();
+    
+    $statuses = Status::all(); // Retrieve the statuses
+    
+    return view('layouts.items.index', compact('data', 'statuses'));
+}
 
-        
-        
-        return view('layouts.items.index', compact('data'));
-        
-
-
-        
-    }
    
     
     
@@ -55,6 +54,8 @@ class ItemController extends Controller
         $dompdf->render();
 
         return $dompdf->stream('layouts.items.pdf');
+
+        
     }
     public function print()
 {
@@ -111,10 +112,12 @@ class ItemController extends Controller
         $categories = ItemCategory::all();
         $unit_types = UnitType::all();
         $inventory_types = InventoryType::all();
+        $statuses = Status::all();
         return view('layouts.items.create')
             ->with('categories', $categories)
             ->with('unit_types', $unit_types)
-            ->with('inventory_types', $inventory_types);
+            ->with('inventory_types', $inventory_types)
+            ->with('statuses', $statuses);
     }
 
 
@@ -124,10 +127,7 @@ class ItemController extends Controller
      */
     public function store(Request $request)
 {
-    if (!$request->filled('post_status_id')) {
-        $request->merge(['post_status_id' => 1]);
-    }
-
+    
     $validatedData = $request->validate([
         'item_name' => 'required',
         'brand' => 'required',
@@ -142,7 +142,9 @@ class ItemController extends Controller
         'image' => 'required|image',
         'purchased_as' => 'required',
     ]);
-
+    if (!$request->filled('post_status_id')) {
+        $validatedData['post_status_id'] = 1;
+    }
     // Save the item to the database
     $item = Item::create($validatedData);
 
@@ -153,12 +155,12 @@ class ItemController extends Controller
         $filename = time() . '.' . $extenstion;
         $file->move('uploads/image/', $filename);
         $item->image = $filename;
-        $item->save();
+        
     }
 
    
     
-    // Generate the QR code
+    // Generate the QR code link
     $itemLink = route('item.showDetails', $item->id);
 
     // Generate the QR code as a binary string
@@ -190,7 +192,7 @@ class ItemController extends Controller
     
 
 
-    
+    LogHelper::createLog('Added asset');
 
     return redirect()->route('item.index')->with('success', 'Item created successfully.');
 }
@@ -213,48 +215,33 @@ public static function generateAdviceForAllItems()
             $estimatedLifespan -= 2;
         }
 
-        // Generate advice based on the age of the device and estimated lifespan
-        $advice = [];
+        // Fetch the message from the item category
+        $message = $item->itemCategory->message;
+
+        // Set the advice as the message
+        $advice = $message;
 
         if ($ageInYears >= $estimatedLifespan) {
-            $advice = 'Device has almost reached its lifespan.';
-
-            // Add specific advice based on the item category
-            switch ($item->itemCategory->item_category) {
-                case 'Desktop Computer':
-                    $advice .= ' Check internals for dust and clean if they are dirty or upgrade device.';
-                    break;
-                case 'Laptop':
-                    $advice .= ' Consider upgrading your storage to SSD if HDD is still in use or upgrade device.';
-                    break;
-                case 'Smartphone':
-                    $advice .= ' Consider getting a new battery if your current one is not holding a charge or upgrade device.';
-                    break;
-                case 'Tablet':
-                    $advice .= ' Consider getting a new tablet case if you want to protect your device from drops and scratches or upgrade device.';
-                    break;
-                default:
-                    break;
-            }
-        } else {
-            $advice = 'Device in optimal condition.';
+            $item->post_status_id = 4;
         }
 
-        // Save the advice to the database
-        $item->update([
-            'advice' => json_encode($advice),
-        ]);
+        // Save the advice and message to the database
     }
 }
 
 public function getMessages()
 {
-    $messages = Item::select('item_name', 'advice')
-                    ->where('advice', '!=', '"Device in optimal condition."')
-                    ->get();
+    $messages = Item::select('id', 'item_name', 'advice')->where('advice', '!=', '"Device in optimal condition."')->get();
 
-    return response()->json(['messages' => $messages]);
+    $itemsWithLink = $messages->map(function ($item) {
+        $itemLink = URL::route('item.showDetails', ['id' => $item->id]);
+        $item->link = $itemLink;
+        return $item;
+    });
+
+    return response()->json(['messages' => $itemsWithLink]);
 }
+
 public function guestPage()
 {
     // Retrieve the data you want to display in the table
@@ -299,14 +286,14 @@ public function guestPage()
      */
     public function edit(Item $item)
     {
-        $post_status_id  = Status::all();
+        $statuses  = Status::all();
         $categories  = ItemCategory::all();
         $unit_types = UnitType::all();
         $inventory_types = InventoryType::all();
         return view('layouts.items.create')
             ->with('categories', $categories)
             ->with('unit_types', $unit_types)
-            ->with('post_status_id', $post_status_id)
+            ->with('statuses', $statuses)
             ->with('inventory_types', $inventory_types)
             ->with('item', $item);
     }
@@ -344,12 +331,13 @@ public function guestPage()
             $file->move('uploads/image/', $filename);
             $validatedData['image'] = $filename;
         }
+        // dd($validatedData);
         
         $item->update($validatedData);
         
 
     
-       
+        LogHelper::createLog('Asset update');
         return redirect()->route('item.index')
             ->with('info', 'Item has been updated successfully');
     }
@@ -361,10 +349,68 @@ public function guestPage()
     public function destroy(Item $item)
     {
         $item->delete();
+        LogHelper::createLog('Asset destroyed');
 
         return redirect()->route('item.index')
             ->with('danger', 'Item has been deleted successfully');
     }
+    public function markAsDeleted(Item $item, $id)
+{
+    $item = Item::find($id);
+    
+    if ($item->trashed()) {
+        return redirect()->route('item.index')
+            ->with('warning', 'Item is already marked as deleted.');
+    }
+    
+    $item->delete();
+
+    LogHelper::createLog('Asset deleted');
+
+    return redirect()->route('item.index')
+            ->with('danger', 'Item has been marked as deleted successfully.');
+           
+}
+
+
+
+public function restore(Item $item, $id)
+{
+    $item = Item::withTrashed()->find($id);
+
+    if ($item->trashed()) {
+        $item->restore();
+
+        return redirect()->route('item.deletedAssets')
+            ->with('success', 'Item has been restored successfully.');
+    }
+
+    return redirect()->route('item.deletedAssets')
+        ->with('warning', 'Item is not deleted.');
+        
+        
+}
+
+
+
+
+
+
+public function deletedAssets()
+{
+    $data = Item::onlyTrashed()
+        ->with('status', 'itemCategory', 'unitType', 'inventoryType')
+        ->get();
+
+        $statuses = Status::all(); // Retrieve the statuses
+    
+        return view('layouts.items.deleted_assets', compact('data', 'statuses'));
+}
+
+
+
+    
+
     public function fetchAdvices()
     {
         $advices = Item::pluck('advice')->toArray();

@@ -16,6 +16,7 @@
                             <tr class="headings">
                                 <th class="column-title">Asset Category</th>
                                 <th class="column-title">Estimated Lifespan </th>
+                                <th class="column-title">Advice if Lifespan is reached</th>
                                 <th class="column-title"><span class="nobr">Action</span></th>
                             </tr>
                         </thead>
@@ -25,6 +26,7 @@
                             <tr class="even pointer">
                                 <td class=" ">{{$value->item_category}}</td>
                                 <td class=" ">{{$value->estimated_lifespan}}</td>
+                                <td class=" ">{{$value->message}}</td>
                                 <td class=" ">
                                     <div class="btn-group">
                                         <a href="{{ route('item_category.edit', $value->id) }}" class="btn btn-info m-1 btn-sm rounded" title="Edit"><i class="fa fa-edit" small>&nbsp Edit</i></a>

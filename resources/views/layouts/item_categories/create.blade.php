@@ -29,6 +29,12 @@
                                 <input type="text" name="estimated_lifespan" value="{{ old('estimated_lifespan', isset($itemCategory->estimated_lifespan) ? $itemCategory->estimated_lifespan : '') }}" class="form-control" id="estimated_lifespan">
                                 </div>
                             </div>
+                            <div class="form-group row">
+                                <label for="message" class="col-sm-2 col-form-label">Advice</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="message" value="{{old('message', isset($itemCategory->message) ? $itemCategory->message : '')}}" class="form-control" id="message">
+                                </div>
+                            </div>
                             <button  type="" class="btn btn-primary float-sm-right">Add</button>
                             <a href="{{route('item_category.index')}}" class="btn btn-warning float-sm-left">Cancel</a>
                         </form>

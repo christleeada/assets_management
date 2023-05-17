@@ -31,17 +31,19 @@
                     </ul>
                   <li><a><i class="fa fa-edit"></i> Assets <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="{{route('item.index')}}">Assets</a></li>
+                      <li><a href="{{route('item.index')}}">Assets Records</a></li>
+                      <li><a href="{{route('item.deletedAssets')}}">Deleted Assets</a></li>
                       <li><a href="{{route('inventory.index')}}">Inventory (beta)</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-user"></i> User Management <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-users"></i> User Management <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="{{route('user.index')}}">User Records</a></li>
+                      <li><a href="{{route('logs.index')}}">User Logs</a></li>
                       
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-table"></i> Setup <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-cogs"></i> Setup <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       
                       <li><a href="{{route('department.index')}}">Departments</a></li>
@@ -61,24 +63,7 @@
             <!-- /sidebar menu -->
 
             <!-- /menu footer buttons -->
-            <div class="sidebar-footer hidden-small">
-              <a data-toggle="tooltip" data-placement="top" title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Logout" href=""onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-              </a>
-              
-                <form id="logout-form" action="{{route('logout')}}" method="POST" style="display: none;">
-                    @csrf
-                </form>
-            </div>
+            
             <!-- /menu footer buttons -->
           </div>
         </div>

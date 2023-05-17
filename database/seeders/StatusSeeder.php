@@ -15,10 +15,11 @@ class StatusSeeder extends Seeder
     {
         Status::insert(
             [
-                ['status' => 'Active'],
+                ['status' => 'Good'],
                 ['status' => 'Disposed'],
                 ['status' => 'Under maintenance'],
                 ['status' => 'Need maintenance'],
+                
             ]
       );
     }

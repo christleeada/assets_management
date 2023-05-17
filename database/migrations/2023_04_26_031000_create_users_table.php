@@ -28,6 +28,7 @@ return new class extends Migration
             $table->foreign('post_status_id')->references('id')->on('statuses');
             $table->string('role')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

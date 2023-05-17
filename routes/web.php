@@ -62,13 +62,23 @@ Route::middleware('auth')->group(function () {
     Route::get('/fetch-advices', [ItemController::class, 'fetchAdvices'])->name('fetchAdvices');
     Route::get('/items/generateAdviceForAllItems', [ItemController::class, 'generateAdviceForAllItems'])->name('item.generateAdviceForAllItems');
     Route::get('/items/messages', [ItemController::class, 'getMessages'])->name('item.getMessages');
-    Route::middleware(['auth', 'admin'])->group(function () {
-        Route::get('users/create', [UserController::class, 'create'])->name('user.create');
-        Route::get('users', [UserController::class, 'index'])->name('user.index');
+    Route::get('/items/deleted_assets', [ItemController::class, 'deletedAssets'])->name('item.deletedAssets');
+
+    Route::middleware(['auth', 'admin_or_officer'])->group(function () {
+        Route::resource('/user', UserController::class);
     });
+    
     Route::get('/item/{id}/details', [ItemController::class, 'showDetails'])
     ->name('item.showDetails')
     ->withoutMiddleware(['auth']);
+    Route::put('/items/{id}', [ItemController::class, 'markAsDeleted'])->name('item.markAsDeleted');
+    Route::put('/items/{id}/restore', [ItemController::class, 'restore'])->name('item.restore');
+    Route::resource('logs', 'App\Http\Controllers\LogController');
+
+
+
+
+
 
     
     

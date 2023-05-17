@@ -1,0 +1,23 @@
+{
+  "name": "magnifier.js",
+  "version": "1.0.1",
+  "description": "Zoom an image with JS",
+  "main": "magnifier.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mark-rolich/Magnifier.js.git"
+  },
+  "keywords": [
+    "zoom",
+    "image"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mark-rolich/Magnifier.js/issues"
+  },
+  "homepage": "https://github.com/mark-rolich/Magnifier.js#readme"
+}

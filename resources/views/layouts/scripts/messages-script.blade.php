@@ -16,8 +16,9 @@ $(document).ready(function() {
         if (messages.length > 0) {
           for (var i = 0; i < messages.length; i++) {
             var message = messages[i];
-            if (message.advice !== 'Device in optimal condition') {
-              var listItem = '<li>' + message.item_name + ': ' + message.advice + '</li>';
+            if (message.advice !== ' ') {
+              var listItem = '<li class="recent-item list-group-item" onclick="window.location.href = \'' + message.link + '\'" data-item-id="' + message.id + '">' + message.item_name + ': ' + message.advice + '</li>';
+
               $('#messagesList').append(listItem);
             }
           }
@@ -41,21 +42,17 @@ $(document).ready(function() {
     // Clear the existing dropdown list
     $('#messagesList').empty();
   });
-});
-</script>
-<script>
-  $(document).ready(function() {
-    $('#refreshButton').click(function() {
-        $.ajax({
-            url: '{{ route("item.generateAdviceForAllItems") }}',
-            type: 'GET',
-            dataType: 'html',
-            success: function(response) {
-                // Remove the alert and directly reload the page
-                location.reload();
-            }
-            
-        });
+
+  $('#refreshButton').click(function() {
+    $.ajax({
+        type: 'GET',
+        dataType: 'html',
+        success: function(response) {
+            // Remove the alert and directly reload the page
+            location.reload();
+        }
     });
+});
+
 });
 </script>

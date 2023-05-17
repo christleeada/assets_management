@@ -10,7 +10,7 @@
           <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
             <img src="{{asset('images/userprof.png')}}" alt="">{{ Auth()->user()->first_name ?? ''}} {{ Auth()->user()->last_name ?? ''}}
           </a>
-          <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
+          <div class="dropdown-menu dropdown-usermenu dropdown-menu-left" aria-labelledby="navbarDropdown">
           
            
           <button id="refreshButton">
@@ -22,11 +22,11 @@
 </a>
 
 
-<div id="messagesDropdown" class="dropdown-menu">
+<div id="messagesDropdown" class="dropdown-menu dropdown-menu-left">
 
   
 
-  <ul id="messagesList" class="list-unstyled">
+  <ul id="messagesList" class="list-group">
     
     <!-- Generated dropdown list items will be inserted here -->
   </ul>
