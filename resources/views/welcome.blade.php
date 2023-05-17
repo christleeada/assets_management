@@ -4,11 +4,7 @@
         <div class="x_panel">
             <div class="x_content">
 
-                <a href="{{route('item.create')}}" class="btn btn-primary">
-                    <i class="fa fa-plus"></i>
-                    <span class="vr"></span>
-                    Add New
-                </a>
+                
 
                 <div class="table-responsive">
 
@@ -80,8 +76,7 @@
         </div>
     </div>
 </x-app-layout>
-@include('layouts.scripts.items-script')
-@include('layouts.scripts.messages-script')
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         new Magnifier({
@@ -93,5 +88,7 @@
         });
     });
 </script>
+@include('layouts.scripts.items-script')
+@include('layouts.scripts.messages-script')
 
 

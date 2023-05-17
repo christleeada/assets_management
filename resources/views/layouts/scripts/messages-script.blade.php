@@ -31,7 +31,7 @@ $(document).ready(function() {
         $('#messagesDropdown').dropdown('show');
       },
       error: function() {
-        alert('Error occurred while fetching notifications.');
+        
       }
     });
   });
