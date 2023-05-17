@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('item_category');
             $table->integer('estimated_lifespan')->nullable();
-            $table->integer('message')->nullable();
+            $table->string('message')->nullable();
             $table->unsignedBigInteger('post_status_id')->nullable();
             $table->foreign('post_status_id')->references('id')->on('statuses');
             $table->timestamps();

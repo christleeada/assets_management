@@ -66,6 +66,9 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware(['auth', 'admin_or_officer'])->group(function () {
         Route::resource('/user', UserController::class);
+        Route::get('/users/deleted_users', [UserController::class, 'deletedUsers'])->name('user.deletedUsers');
+        Route::put('/users/{id}/restore', [UserController::class, 'restore'])->name('user.restore');
+        
     });
     
     Route::get('/item/{id}/details', [ItemController::class, 'showDetails'])
@@ -74,6 +77,8 @@ Route::middleware('auth')->group(function () {
     Route::put('/items/{id}', [ItemController::class, 'markAsDeleted'])->name('item.markAsDeleted');
     Route::put('/items/{id}/restore', [ItemController::class, 'restore'])->name('item.restore');
     Route::resource('logs', 'App\Http\Controllers\LogController');
+    Route::post('/item/fix/{id}', [ItemController::class, 'fix'])->name('item.fix');
+
 
 
 

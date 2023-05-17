@@ -40,6 +40,8 @@
                     <ul class="nav child_menu">
                       <li><a href="{{route('user.index')}}">User Records</a></li>
                       <li><a href="{{route('logs.index')}}">User Logs</a></li>
+                      <li><a href="{{ route('user.deletedUsers') }}">Deleted Users</a></li>
+
                       
                     </ul>
                   </li>

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Helpers\LogHelper;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class UserController extends Controller
 {
@@ -46,6 +48,10 @@ class UserController extends Controller
 
     
         User::create($validatedData);
+
+        $username = str_replace(' ', ' ', $request->first_name);
+
+        LogHelper::createLog(' added a user named '. $username);
     
         return redirect()->route('user.index')
             ->with('success', 'User has been created successfully');
@@ -64,6 +70,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        $username = str_replace(' ', ' ', $user->first_name);
+        LogHelper::createLog('User edited user named '. $username);
         return view('layouts.users.create', compact('user'));
     }
 
@@ -87,7 +95,8 @@ class UserController extends Controller
         $user->update($validatedData);
         
 
-    
+        $username = str_replace(' ', ' ', $user->first_name);
+        LogHelper::createLog(' updated user named '. $username);
        
         return redirect()->route('user.index')
             ->with('info', 'User has been updated successfully');
@@ -96,11 +105,50 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
-    {
-        $user->delete();
-
+    public function destroy($id)
+{
+    $user = User::find($id);
+    
+    if ($user->trashed()) {
         return redirect()->route('user.index')
-            ->with('danger', 'User has been deleted successfully');
+            ->with('warning', 'User is already deleted.');
     }
+    
+    $username = str_replace(' ', ' ', $user->first_name);
+    LogHelper::createLog('User deleted '. $username . ' from users');
+
+    $user->delete();
+
+    return redirect()->route('user.index')
+        ->with('danger', 'User has been deleted successfully.');
+}
+
+    public function deleteUser(User $user, $id)
+{
+    
+           
+}
+public function deletedUsers()
+{
+    $data = User::onlyTrashed()->get();
+
+    return view('layouts.users.deleted_users', compact('data'));
+}
+public function restore($id)
+{
+    $user = User::withTrashed()->find($id);
+
+    if ($user->trashed()) {
+        $user->restore();
+        $username = str_replace(' ', ' ', $user->first_name);
+        LogHelper::createLog('User restored '. $username . ' in users');
+        return redirect()->route('user.deletedUsers')
+            ->with('success', 'user has been restored successfully.');
+    }
+
+    return redirect()->route('user.deletedUsers')
+        ->with('warning', 'User is not deleted.');
+}
+
+    
 }

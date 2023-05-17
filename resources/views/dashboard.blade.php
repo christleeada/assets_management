@@ -183,7 +183,7 @@ $brandCounts = DB::table('items')
   <div class="col-md-8">
     <div class="card">
         <div class="card-body">
-            <h3 style="margin-bottom: 10px;">Notice</h3>
+            <h3 style="margin-bottom: 10px;">Assets needing maintenance</h3>
             <ul>
                 <?php
                 $itemsWithStatusFour = DB::table('items')

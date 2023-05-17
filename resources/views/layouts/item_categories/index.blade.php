@@ -16,7 +16,7 @@
                             <tr class="headings">
                                 <th class="column-title">Asset Category</th>
                                 <th class="column-title">Estimated Lifespan </th>
-                                <th class="column-title">Advice if Lifespan is reached</th>
+                                <th class="column-title">Advice if lifespan is reached</th>
                                 <th class="column-title"><span class="nobr">Action</span></th>
                             </tr>
                         </thead>

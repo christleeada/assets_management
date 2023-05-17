@@ -76,9 +76,12 @@
                                     <div class="btn-group">
                                     @if($value->post_status_id === 4)
                                     
-                                    <button class="btn btn-success delete-header m-1 btn-sm rounded" title="Fixed">
-                                            <i class="fa fa-wrench sm" ></i>
-                                        </button>
+                                    <form action="{{ route('item.fix', $value->id) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    <a type="submit" class="btn btn-success delete-header m-1 btn-sm rounded" title="Fixed">
+                                        <i class="fa fa-wrench sm"></i>
+                                    </a>
+                                </form>
                                     @endif
                                         <a href="{{ route('item.edit', $value->id) }}" class="btn btn-info m-1 btn-sm rounded" title="Edit">
                                             <i class="fa fa-edit sm"></i>

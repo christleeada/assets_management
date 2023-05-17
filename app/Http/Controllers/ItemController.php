@@ -177,7 +177,7 @@ class ItemController extends Controller
     file_put_contents($qrCodePath, $qrCode);
     
     // Get the item name without any spaces
-    $itemName = str_replace(' ', '_', $item->item_name);
+    $itemName = str_replace(' ', ' ', $item->item_name);
     
     // Save the QR code as a PNG file with the item name in the filename
     $qrCodePath = 'images/qrcode_images/' . $itemName . '_qrcode.png';
@@ -192,7 +192,7 @@ class ItemController extends Controller
     
 
 
-    LogHelper::createLog('Added asset');
+    LogHelper::createLog('User added '. $itemName . ' to assets');
 
     return redirect()->route('item.index')->with('success', 'Item created successfully.');
 }
@@ -336,8 +336,8 @@ public function guestPage()
         $item->update($validatedData);
         
 
-    
-        LogHelper::createLog('Asset update');
+        $itemName = str_replace(' ', ' ', $item->item_name);
+        LogHelper::createLog('User updated '. $itemName . ' in assets');
         return redirect()->route('item.index')
             ->with('info', 'Item has been updated successfully');
     }
@@ -349,7 +349,8 @@ public function guestPage()
     public function destroy(Item $item)
     {
         $item->delete();
-        LogHelper::createLog('Asset destroyed');
+        $itemName = str_replace(' ', ' ', $item->item_name);
+        LogHelper::createLog('User destroyed '. $itemName . ' in assets');
 
         return redirect()->route('item.index')
             ->with('danger', 'Item has been deleted successfully');
@@ -365,7 +366,8 @@ public function guestPage()
     
     $item->delete();
 
-    LogHelper::createLog('Asset deleted');
+    $itemName = str_replace(' ', ' ', $item->item_name);
+        LogHelper::createLog('User deleted '. $itemName . ' in assets');
 
     return redirect()->route('item.index')
             ->with('danger', 'Item has been marked as deleted successfully.');
@@ -380,7 +382,8 @@ public function restore(Item $item, $id)
 
     if ($item->trashed()) {
         $item->restore();
-
+        $itemName = str_replace(' ', ' ', $item->item_name);
+        LogHelper::createLog('User restored '. $itemName . ' in assets');
         return redirect()->route('item.deletedAssets')
             ->with('success', 'Item has been restored successfully.');
     }
@@ -390,6 +393,20 @@ public function restore(Item $item, $id)
         
         
 }
+public function fix(Item $item, $id) {
+    $item = Item::find($id);
+    if ($item) {
+        $item->post_status_id = 1;
+        $item->save();
+
+        $itemName = str_replace(' ', ' ', $item->item_name);
+        LogHelper::createLog('User fixed '. $itemName . ' in assets');
+
+        return redirect()->route('item.index')
+        ->with('success', 'Item has been fixed.');
+    }
+}
+
 
 
 

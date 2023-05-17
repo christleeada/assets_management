@@ -2,13 +2,13 @@
 
 namespace App\Helpers;
 
-use App\Models\Logs;
+use App\Models\Log;
 
 class LogHelper
 {
     public static function createLog($event)
     {
-        $log = new Logs();
+        $log = new Log();
         $log->event = $event;
         $log->user_id = auth()->id();
         $log->save();

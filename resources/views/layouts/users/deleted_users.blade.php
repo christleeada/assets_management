@@ -4,12 +4,7 @@
         <div class="x_panel">
             <div class="x_content">
 
-                <a href="{{route('user.create')}}" class="btn btn-primary">
-                    <i class="fa fa-plus"></i>
-                    <span class="vr"></span>
-                    Add New
-                </a>
-
+                
                 <div class="table-responsive">
                     <table id="itemTable" class="table table-striped jambo_table bulk_action">
                     
@@ -46,18 +41,20 @@
                                 <td class=" ">{{$value->role}}</td>      
                                 <td class=" ">
                                     <div class="btn-group">
-                                        <a href="{{ route('user.edit', $value->id) }}" class="btn btn-info m-1 btn-sm rounded" title="Edit"><i class="fa fa-edit" small></i></a>
-
-                                        <form action="{{ route('user.destroy', $value->id) }}" method="POST">
-
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-danger delete-header m-1 btn-sm rounded" title="Delete"><i class="fa fa-trash" small></i></button>
-                                        </form>
                                         
-                                    </div>
-                                    
+                                        
+                                    <form action="{{ route('user.restore', $value->id) }}" method="POST" style="display: inline;">
+                                        @method('PUT')
+                                        @csrf
+                                        <button class="btn btn-success m-1 btn-sm rounded" title="Restore">
+                                            <i class="fa fa-undo sm" ></i>
+                                        </button>
+                                    </form>
 
+
+
+
+                                    </div>
                                 </td>
                                 </td>
                             </tr>
