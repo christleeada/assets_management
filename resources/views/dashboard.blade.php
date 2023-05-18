@@ -94,7 +94,7 @@ $brandCounts = DB::table('items')
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
         <div class="row x_title">
           <div class="col-md-6">
-            <h3>Management Activities <small>Brand of Assets</small></h3>
+            <h3>Management Activities <small>Brand x Assets</small></h3>
           </div>
         </div>
 
@@ -133,7 +133,7 @@ $brandCounts = DB::table('items')
               },
               title: {
                 display: true,
-                text: "Brands"
+                text: "Graph"
               }
             }
           });
@@ -180,7 +180,8 @@ $brandCounts = DB::table('items')
 </div>
 
   </div>
-  <div class="col-md-8">
+  <div class="col-md-8"></div>
+  <div class="col-md-4">
     <div class="card">
         <div class="card-body">
             <h3 style="margin-bottom: 10px;">Assets with issues</h3>
