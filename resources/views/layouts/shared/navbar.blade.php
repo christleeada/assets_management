@@ -38,10 +38,20 @@
 
 
             
-            <a class="dropdown-item" href="" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-sign-out pull-right" ></i> Log Out</a>
-            <form id="logout-form" action="{{route('logout')}}" method="POST" style="display: none;">
-              @csrf
-            </form>
+@if(auth()->check())
+    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+        <i class="fa fa-sign-out"></i> Log Out
+    </a>
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @csrf
+    </form>
+@else
+    <a class="dropdown-item" href="{{ route('login') }}">
+        <i class="fa fa-sign-in"></i> Log In
+    </a>
+@endif
+
+
           </div>
         </li>
       </ul>

@@ -89,6 +89,6 @@
     });
 </script>
 @include('layouts.scripts.items-script')
-@include('layouts.scripts.messages-script')
+
 
 

@@ -79,28 +79,35 @@ class UserController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, User $user)
-    {
-        $validatedData = $request->validate([
-            
-            'first_name' => 'nullable',
-            'last_name' => 'nullable',
-            'middle_name' => 'nullable',
-            'address' => 'nullable',
-            'contact_no' => 'nullable',
-            'email' => 'nullable',
-            'password' => 'nullable',
-            'role' => 'required',
-            
-        ]);
-        $user->update($validatedData);
-        
+{
+    $validatedData = $request->validate([
+        'first_name' => 'nullable',
+        'last_name' => 'nullable',
+        'middle_name' => 'nullable',
+        'address' => 'nullable',
+        'contact_no' => 'nullable',
+        'email' => 'nullable',
+        'password' => 'nullable',
+        'role' => 'required',
+    ]);
 
-        $username = str_replace(' ', ' ', $user->first_name);
-        LogHelper::createLog(' updated user named '. $username);
-       
-        return redirect()->route('user.index')
-            ->with('info', 'User has been updated successfully');
+    // Check if the password is provided and not empty
+    if ($request->filled('password')) {
+        // Encrypt the password using bcrypt
+        $validatedData['password'] = Hash::make($validatedData['password']);
+    } else {
+        // Remove the password from the validated data to avoid updating it
+        unset($validatedData['password']);
     }
+
+    $user->update($validatedData);
+
+    $username = str_replace(' ', ' ', $user->first_name);
+    LogHelper::createLog('Updated user named ' . $username);
+
+    return redirect()->route('user.index')
+        ->with('info', 'User has been updated successfully');
+}
 
     /**
      * Remove the specified resource from storage.

@@ -12,16 +12,22 @@
                             <link href="{{ asset('asset/vendors/nprogress/support/style.css') }}" rel="stylesheet">
                             <tr class="headings">
                                 <th class="column-title">User ID</th>
+                                <th class="column-title">Role</th>
                                 <th class="column-title">User Name</th>
                                 <th class="column-title">Events</th>
+                                <th class="column-title">Data and time</th>
+
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($logs as $log)
                                 <tr>
                                     <td>{{ $log->user->id }}</td>
+                                    <td>{{ $log->user->role }}</td>
                                     <td>{{ $log->user->first_name }}</td>
                                     <td>{{ $log->event }}</td>
+                                    <td>{{ $log->created_at }}</td>
+
                                 </tr>
                             @endforeach
                         </tbody>

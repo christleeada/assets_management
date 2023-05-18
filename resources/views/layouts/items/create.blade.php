@@ -52,6 +52,7 @@
                                 <option value="Microsoft" {{ (old('brand', isset($item->brand) ? $item->brand : '') == 'Microsoft') ? 'selected' : '' }}>Microsoft</option>
                                 <option value="Fujitsu" {{ (old('brand', isset($item->brand) ? $item->brand : '') == 'Fujitsu') ? 'selected' : '' }}>Fujitsu</option>
                                 <option value="VAIO" {{ (old('brand', isset($item->brand) ? $item->brand : '') == 'VAIO') ? 'selected' : '' }}>VAIO</option>
+                                <option value="Alienware" {{ (old('brand', isset($item->brand) ? $item->brand : '') == 'Alienware') ? 'selected' : '' }}>Alienware</option>
                                 <option value="Others" {{ (old('brand', isset($item->brand) ? $item->brand : '') == 'Others') ? 'selected' : '' }}>Others</option>
                                 </select>
                                 </div>

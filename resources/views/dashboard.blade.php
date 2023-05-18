@@ -42,10 +42,10 @@ $brandCounts = DB::table('items')
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.min.js"></script>
 <style>
-  /* body {
+  body {
     overflow: auto;
     height: 100%;
-  } */
+  }
 </style>
 
 <x-app-layout>
@@ -98,9 +98,9 @@ $brandCounts = DB::table('items')
           </div>
         </div>
 
-        <canvas id="myChart" style="width: 100%; max-width: 700px"></canvas>
+        <canvas id="myChart" style="width: 100%; max-width: 850px"></canvas>
         <script>
-          var xValues = ["Apple", "Lenovo", "Dell", "Samsung", "Asus", "HP", "Razer", "Toshiba", "Acer", "Microsoft", "Fujitsu", "VAIO", "Others"];
+          var xValues = ["Apple", "Lenovo", "Dell", "Samsung", "Asus", "HP", "Razer", "Toshiba", "Acer", "Microsoft", "Fujitsu", "VAIO", "Alienware", "Others"];
           var yValues = [
             <?php echo $brandCounts['Apple'] ?? 0; ?>,
             <?php echo $brandCounts['Lenovo'] ?? 0; ?>,
@@ -114,9 +114,10 @@ $brandCounts = DB::table('items')
             <?php echo $brandCounts['Microsoft'] ?? 0; ?>,
             <?php echo $brandCounts['Fujitsu'] ?? 0; ?>,
             <?php echo $brandCounts['VAIO'] ?? 0; ?>,
+            <?php echo $brandCounts['Alienware'] ?? 0; ?>,
             <?php echo $brandCounts['Others'] ?? 0; ?>
           ];
-          var barColors = ["#4C3A51", "#1D267D", "#16003B", "#570530", "brown", "cyan", "green", "black", "orange", "purple", "yellow", "pink", "#2E4F4F"];
+          var barColors = ["#4C3A51", "#1D267D", "#16003B", "#570530", "brown", "cyan", "green", "black", "orange", "purple", "yellow", "#C060A1", "#2E4F4F", "#647E68"];
 
           new Chart("myChart", {
             type: "bar",
@@ -144,15 +145,17 @@ $brandCounts = DB::table('items')
     </div>
 
     <div class="col-md-4">
-    <div class="card">
-        <div class="card-body">
-            <h3 style="margin-bottom: 10px;">Recently Added</h3>
+      <div><h3 class="text-center mb-4">Recently Added</h3></div>
+    <div style="max-height: 500px; overflow-y: scroll;">
+    
+        <div >
+            
             <ul>
                 <?php
                 $recentlyAdded = DB::table('items')
                     ->select('id', 'image', 'item_name', 'description', 'created_at')
                     ->orderBy('created_at', 'desc')
-                    ->limit(3) // Adjust the number of recently added items to display
+                    ->limit(10) // Adjust the number of recently added items to display
                     ->get();
 
                 foreach ($recentlyAdded as $item) {
@@ -180,16 +183,17 @@ $brandCounts = DB::table('items')
 </div>
 
   </div>
+  <div class="row">
   <div class="col-md-8"></div>
-  <div class="col-md-4">
-    <div class="card">
+  <div class="text-center mb-4"><h3 style="margin-bottom: 10px;">Assets with issues</h3>
+    <div style="max-height: 500px; overflow-y: scroll;">
         <div class="card-body">
-            <h3 style="margin-bottom: 10px;">Assets with issues</h3>
+            
             <ul>
                 <?php
                 $itemsWithStatusFour = DB::table('items')
                     ->join('statuses', 'items.post_status_id', '=', 'statuses.id')
-                    ->select('items.id', 'items.image', 'items.item_name', 'items.advice', 'items.updated_at')
+                    ->select('items.id', 'items.image', 'items.item_name', 'items.remarks', 'items.updated_at')
                     ->where('statuses.status', '=', 'Need Maintenance')
                     ->orderBy('items.created_at', 'desc')
                     ->limit(3) // Adjust the number of items to display
@@ -205,7 +209,7 @@ $brandCounts = DB::table('items')
                             <div class="col-md-8">
                                 <div class="item-details">
                                     <h4>{{ $item->item_name }}</h4>
-                                    <p>{{ $item->advice }}</p>
+                                    <p>{{ $item->remarks }}</p>
                                     <span class="created-at">{{ $item->updated_at }}</span>
                                 </div>
                             </div>
@@ -218,10 +222,10 @@ $brandCounts = DB::table('items')
         </div>
     </div>
 </div>
+</div>
 
   
 </x-app-layout>
-
 
 
 

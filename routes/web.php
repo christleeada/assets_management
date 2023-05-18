@@ -11,6 +11,10 @@ use App\Http\Controllers\UnitTypeController;
 use App\Http\Controllers\PrefixController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\LoginController;
+use App\Helpers\LogHelper;
+use Illuminate\Support\Facades\Auth;
+
 use App\Models\Item;
 
 /*
@@ -29,16 +33,21 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
+
     return view('dashboard');
+    
 })->middleware(['auth', 'verified'])->name('dashboard');
+
 
 Route::middleware('auth')->group(function () {
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    
 
+    Route::post('/login', [LoginController::class, 'loginuser'])->name('login');
+    
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 
 
@@ -51,6 +60,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/prefix', PrefixController::class);
     Route::resource('/item', ItemController::class);
     Route::resource('/inventory', InventoryController::class);
+
     
     Route::get('/items.csv', [ItemController::class, 'exportCSV'])->name('item.csv')->withoutMiddleware(['auth']);
     Route::get('/items/print', [ItemController::class, 'print'])->name('item.print')->withoutMiddleware(['auth']);
@@ -78,6 +88,9 @@ Route::middleware('auth')->group(function () {
     Route::put('/items/{id}/restore', [ItemController::class, 'restore'])->name('item.restore');
     Route::resource('logs', 'App\Http\Controllers\LogController');
     Route::post('/item/fix/{id}', [ItemController::class, 'fix'])->name('item.fix');
+
+ 
+    
 
 
 

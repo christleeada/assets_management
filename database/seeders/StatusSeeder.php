@@ -17,9 +17,9 @@ class StatusSeeder extends Seeder
             [
                 ['status' => 'Good'],
                 ['status' => 'Disposed'],
-                ['status' => 'Under maintenance'],
+                ['status' => 'For Commissioning'],
                 ['status' => 'Need maintenance'],
-                
+                ['status' => 'Defective'],
             ]
       );
     }

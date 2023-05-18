@@ -337,7 +337,7 @@ public function guestPage()
         
 
         $itemName = str_replace(' ', ' ', $item->item_name);
-        LogHelper::createLog('User updated '. $itemName . ' in assets');
+        LogHelper::createLog('updated '. $itemName . ' in assets');
         return redirect()->route('item.index')
             ->with('info', 'Item has been updated successfully');
     }
@@ -350,7 +350,7 @@ public function guestPage()
     {
         $item->delete();
         $itemName = str_replace(' ', ' ', $item->item_name);
-        LogHelper::createLog('User destroyed '. $itemName . ' in assets');
+        LogHelper::createLog('destroyed '. $itemName . ' in assets');
 
         return redirect()->route('item.index')
             ->with('danger', 'Item has been deleted successfully');
@@ -367,7 +367,8 @@ public function guestPage()
     $item->delete();
 
     $itemName = str_replace(' ', ' ', $item->item_name);
-        LogHelper::createLog('User deleted '. $itemName . ' in assets');
+
+    LogHelper::createLog('deleted '. $itemName . ' in assets');
 
     return redirect()->route('item.index')
             ->with('danger', 'Item has been marked as deleted successfully.');
@@ -383,7 +384,7 @@ public function restore(Item $item, $id)
     if ($item->trashed()) {
         $item->restore();
         $itemName = str_replace(' ', ' ', $item->item_name);
-        LogHelper::createLog('User restored '. $itemName . ' in assets');
+        LogHelper::createLog('restored '. $itemName . ' in assets');
         return redirect()->route('item.deletedAssets')
             ->with('success', 'Item has been restored successfully.');
     }

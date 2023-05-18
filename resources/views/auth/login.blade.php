@@ -37,15 +37,13 @@
 
   <body class="login">
     <div>
-      <a class="hiddenanchor" id="signup"></a>
-      <a class="hiddenanchor" id="signin"></a>
-
+      <!-- Login form -->
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
-          <img class="login-logo" src="{{ asset('images/Loginlogo.png') }}" alt="Logo">
-          <form method="POST" action="{{route('login')}}">
-                @csrf
+            <img class="login-logo" src="{{ asset('images/Loginlogo.png') }}" alt="Logo">
+            <form method="POST" action="{{ route('login') }}">
+              @csrf
               <h1>CCS Assets Management</h1>
               <div>
                 <input type="email" name="email" class="form-control" placeholder="Username" required="" />
@@ -58,11 +56,9 @@
               </div>
 
               <div class="clearfix"></div>
-
             </form>
           </section>
         </div>
-
       </div>
     </div>
   </body>

@@ -78,9 +78,9 @@
                                     
                                     <form action="{{ route('item.fix', $value->id) }}" method="POST" style="display: inline;">
                                     @csrf
-                                    <a type="submit" class="btn btn-success delete-header m-1 btn-sm rounded" title="Fixed">
+                                    <button type="submit" class="btn btn-success delete-header m-1 btn-sm rounded" title="Fixed">
                                         <i class="fa fa-wrench sm"></i>
-                                    </a>
+                                    </button>
                                 </form>
                                     @endif
                                         <a href="{{ route('item.edit', $value->id) }}" class="btn btn-info m-1 btn-sm rounded" title="Edit">
