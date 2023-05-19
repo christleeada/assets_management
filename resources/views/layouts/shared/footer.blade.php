@@ -1,6 +1,6 @@
 <footer>
   <div class="pull-right">
-      © Christ Lee Ada @<?php
+      © CCS Assets @<?php
         $year = date("Y");
         echo $year; ?>
   </div>
