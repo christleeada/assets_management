@@ -15,24 +15,90 @@
                 <div class="magnifier-container">
                 <div class="magnifier"></div>
                 </div>
+                <style>
+                    .custom-dropdown {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  color: #0B2447;
+  font-size: 14px;
+  width: 200px;
+}
+
+.custom-dropdown:hover {
+  background-color: #e0e0e0;
+}
+
+.custom-dropdown:focus {
+  outline: none;
+  box-shadow: 0 0 4px #bbb;
+}
+                </style>
+                <select id="filterDropdown" class="custom-dropdown">
+  <option value="">All</option>
+  @foreach ($categories as $category)
+    <option value="{{$category}}">{{ $category }}</option>
+  @endforeach
+</select>
+
+
+
+
+<a href="{{ route('item.csv') }}" class="btn btn-success m-1 btn-sm rounded">CSV</a>
+        <span style="padding-left: 5px;" ></span>
+        <a  href="{{ route('item.pdf') }}" class="btn btn-info m-1 btn-sm rounded">PDF</a>
+        <span style="padding-left: 5px;" ></span>
+        <a href="{{ route('item.print') }}" class="btn btn-primary m-1 btn-sm rounded">Print</a>
+        <span style="padding-left: 5px;" ></span>
+        <a href="{{ route('item.printqr') }}" class="btn btn-primary m-1 btn-sm rounded">Print QR Codes</a>
                     <table id="itemTable" class="table table-striped jambo_table bulk_action">
+                        <!-- Button to open the filter modal -->
+<button type="button" class="btn btn-success m-1 btn-sm rounded" data-toggle="modal" data-target="#filterModal">
+  Date Filter
+</button>
+
+<!-- Filter Modal -->
+<div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="filterModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="filterModalLabel">Date Filter</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="startDate">Start Date</label>
+          <input type="date" class="form-control" id="startDate">
+        </div>
+        <div class="form-group">
+          <label for="endDate">End Date</label>
+          <input type="date" class="form-control" id="endDate">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="applyFilter">Apply Filter</button>
+      </div>
+    </div>
+  </div>
+</div>
                     
         @csrf
-        <a href="{{ route('item.csv') }}" class="btn btn-success m-1 btn-sm rounded">CSV</a>
-        <span style="padding-left: 10px;" ></span>
-        <a  href="{{ route('item.pdf') }}" class="btn btn-info m-1 btn-sm rounded">PDF</a>
-        <span style="padding-left: 10px;" ></span>
-        <a href="{{ route('item.print') }}" class="btn btn-primary m-1 btn-sm rounded">Print</a>
-    </form>
+        
+    
+    
     
                     
                         <thead>
+                            
                         
                         <link href="{{ asset('asset/vendors/nprogress/support/style.css') }}" rel="stylesheet">
                             <tr class="headings">
                                 <th class="column-title">QR Code</th>
                                 <th class="column-title">Name</th>
-                                
                                 <th class="column-title">Price</th>
                                 <th class="column-title">Category</th>
                                 <th class="column-title">Quantity </th>
@@ -60,12 +126,14 @@
                                 <td class=" ">{{$value->date_purchased}}</td>
                                 <td class=" ">{{$value->created_at}}</td>
                                 <td class=""> 
-                                @if($value->post_status_id === 4)
+                                @if($value->post_status_id === 5)
+                                    <span class="badge badge-warning">{{ $statuses->find($value->post_status_id)->status }}</span>
+                                @elseif($value->post_status_id === 4)
                                     <span class="badge badge-warning">{{ $statuses->find($value->post_status_id)->status }}</span>
                                 @elseif($value->post_status_id === 3)
                                     <span class="badge badge-primary">{{ $statuses->find($value->post_status_id)->status }}</span>
                                 @elseif($value->post_status_id === 2)
-                                    <span class="badge badge-secondary">{{ $statuses->find($value->post_status_id)->status }}</span>
+                                    <span class="badge badge-dark">{{ $statuses->find($value->post_status_id)->status }}</span>
                                 @elseif($value->post_status_id === 1)
                                     <span class="badge badge-success">{{ $statuses->find($value->post_status_id)->status }}</span>
                                 

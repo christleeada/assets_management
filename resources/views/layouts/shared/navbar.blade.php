@@ -8,7 +8,8 @@
       <ul class=" navbar-right">
         <li class="nav-item dropdown open" style="padding-left: 15px;">
           <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-            <img src="{{asset('images/userprof.png')}}" alt="">{{ Auth()->user()->first_name ?? ''}} {{ Auth()->user()->last_name ?? ''}}
+          <img src="{{ asset('uploads/profilepic/' . (auth()->user()->profilepic ?? 'userprof.png')) }}" alt="User image" class="rounded mx-auto d-block" style="width: 30px; height: 30px;  border-radius: 50%;">
+{{ Auth()->user()->first_name ?? 'Guest'}} {{ Auth()->user()->last_name ?? ''}}
           </a>
           <div class="dropdown-menu dropdown-usermenu dropdown-menu-left" aria-labelledby="navbarDropdown">
           

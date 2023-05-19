@@ -31,7 +31,7 @@ $brandCounts = DB::table('items')
   ->pluck('count', 'brand')
   ->toArray();
 
-  
+
 
 
 ?>
@@ -41,51 +41,51 @@ $brandCounts = DB::table('items')
 </script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.min.js"></script>
-<style>
+<!-- <style>
   body {
     overflow: auto;
     height: 100%;
   }
-</style>
+</style> -->
 
 <x-app-layout>
 
 
-<div class="row">
-  <div class="col-3">
-    <a href="{{route('item.index')}}" class="btn btn-primary btn-block">
-      <i class="fa fa-archive fa-3x"></i>
-      <span class="d-block mt-2">Total Assets</span>
-      <span class="count">{{ $totalstocks }}</span>
-    </a>
+  <div class="row">
+    <div class="col-3">
+      <a href="{{route('item.index')}}" class="btn btn-primary btn-block">
+        <i class="fa fa-archive fa-2x"></i>
+        <span class="d-block mt-2">Total Assets</span>
+        <span class="count">{{ $totalstocks }}</span>
+      </a>
+    </div>
+
+    <div class="col-3">
+      <a href="{{route('item.index')}}" class="btn btn-success btn-block">
+        <i class="fa fa-desktop fa-2x"></i>
+        <span class="d-block mt-2">PC</span>
+        <span class="count">{{ $countPC }}</span>
+      </a>
+    </div>
+
+    <div class="col-3">
+      <a href="{{route('item.index')}}" class="btn btn-info btn-block">
+        <i class="fa fa-laptop fa-2x"></i>
+        <span class="d-block mt-2">Laptop</span>
+        <span class="count">{{ $countLaptop }}</span>
+      </a>
+    </div>
+
+    <div class="col-3">
+      <a href="{{route('item.index')}}" class="btn btn-warning btn-block">
+        <i class="fa fa-tablet fa-2x"></i>
+        <span class="d-block mt-2">Tablet</span>
+        <span class="count">{{ $countTab }}</span>
+      </a>
+    </div>
+
+
   </div>
-  
-  <div class="col-3">
-    <a href="{{route('item.index')}}" class="btn btn-success btn-block">
-      <i class="fa fa-desktop fa-3x"></i>
-      <span class="d-block mt-2">PC</span>
-      <span class="count">{{ $countPC }}</span>
-    </a>
-  </div>
-  
-  <div class="col-3">
-    <a href="{{route('item.index')}}" class="btn btn-info btn-block">
-      <i class="fa fa-laptop fa-3x"></i>
-      <span class="d-block mt-2">Laptop</span>
-      <span class="count">{{ $countLaptop }}</span>
-    </a>
-  </div>
-  
-  <div class="col-3">
-    <a href="{{route('item.index')}}" class="btn btn-warning btn-block">
-      <i class="fa fa-tablet fa-3x"></i>
-      <span class="d-block mt-2">Tablet</span>
-      <span class="count">{{ $countTab }}</span>
-    </a>
-  </div>
-  
-  
-</div>
 
 
   <div class="row">
@@ -94,7 +94,7 @@ $brandCounts = DB::table('items')
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
         <div class="row x_title">
           <div class="col-md-6">
-            <h3>Management Activities <small>Brand x Assets</small></h3>
+            <h2> Total Assets of Each Brand</h2>
           </div>
         </div>
 
@@ -145,87 +145,91 @@ $brandCounts = DB::table('items')
     </div>
 
     <div class="col-md-4">
-      <div><h3 class="text-center mb-4">Recently Added</h3></div>
-    <div style="max-height: 500px; overflow-y: scroll;">
-    
-        <div >
-            
-            <ul>
-                <?php
-                $recentlyAdded = DB::table('items')
-                    ->select('id', 'image', 'item_name', 'description', 'created_at')
-                    ->orderBy('created_at', 'desc')
-                    ->limit(10) // Adjust the number of recently added items to display
-                    ->get();
+      <div>
+        <h2 class="text-center mb-4">Recently Added</h2>
+      </div>
+      <div style="max-height: 300px; overflow-y: scroll;">
 
-                foreach ($recentlyAdded as $item) {
-                ?>
-                    <li class="list-group-item" onclick="window.location='{{ route('item.show', $item->id) }}'" data-item-id="{{ $item->id }}">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <img src="{{ asset('uploads/image/' . $item->image) }}" alt="Item Image" class="rounded mx-auto d-block" style="width:100px;height:100px;">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="item-details">
-                                    <h4>{{ $item->item_name }}</h4>
-                                    <p>{{ $item->description }}</p>
-                                    <span class="created-at">{{ $item->created_at }}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                <?php
-                }
-                ?>
-            </ul>
+        <div>
+
+          <ul>
+            <?php
+            $recentlyAdded = DB::table('items')
+              ->select('id', 'image', 'item_name', 'description', 'created_at')
+              ->orderBy('created_at', 'desc')
+              ->limit(6) // Adjust the number of recently added items to display
+              ->get();
+
+            foreach ($recentlyAdded as $item) {
+            ?>
+              <li class="list-group-item" onclick="window.location='{{ route('item.show', $item->id) }}'" data-item-id="{{ $item->id }}">
+                <div class="row">
+
+                  
+                    <img src="{{ asset('uploads/image/' . $item->image) }}" alt="Item Image" class="rounded mx-auto d-block" style="width:100px;height:100px;">
+                    <div class="item-details">
+                      <h6>{{ $item->item_name }}</h6>
+                      <p>{{ $item->description }}</p>
+                      <span class="created-at">{{ $item->created_at }}</span>
+                    </div>
+                  
+                </div>
+              </li>
+            <?php
+            }
+            ?>
+          </ul>
         </div>
+      </div>
     </div>
-</div>
 
   </div>
+
   <div class="row">
-  <div class="col-md-8"></div>
-  <div class="text-center mb-4"><h3 style="margin-bottom: 10px;">Assets with issues</h3>
-    <div style="max-height: 500px; overflow-y: scroll;">
-        <div class="card-body">
-            
-            <ul>
-                <?php
-                $itemsWithStatusFour = DB::table('items')
-                    ->join('statuses', 'items.post_status_id', '=', 'statuses.id')
-                    ->select('items.id', 'items.image', 'items.item_name', 'items.remarks', 'items.updated_at')
-                    ->where('statuses.status', '=', 'Need Maintenance')
-                    ->orderBy('items.created_at', 'desc')
-                    ->limit(3) // Adjust the number of items to display
-                    ->get();
+    <div class="col-md-8">
+      <table id="itemTable" >
+        <h2>Defective/Service Required Assets</h2>
+        <thead>
+          <tr>
+            <th>Image</th>
+            <th>Item Name</th>
+            <th>Remarks</th>
+            <th>Updated At</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+          $itemsWithStatus = DB::table('items')
+            ->join('statuses', 'items.post_status_id', '=', 'statuses.id')
+            ->select('items.id', 'items.image', 'items.item_name', 'items.remarks', 'items.updated_at')
+            ->whereIn('statuses.status', ['Need Maintenance', 'Disposed', 'Defective'])
+            ->orderBy('items.created_at', 'desc')
+            ->limit(3) // Adjust the number of items to display
+            ->get();
 
-                foreach ($itemsWithStatusFour as $item) {
-                ?>
-                    <li class="list-group-item" onclick="window.location='{{ route('item.show', $item->id) }}'" data-item-id="{{ $item->id }}">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <img src="{{ asset('uploads/image/' . $item->image) }}" alt="Item Image" class="rounded mx-auto d-block" style="width:100px;height:100px;">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="item-details">
-                                    <h4>{{ $item->item_name }}</h4>
-                                    <p>{{ $item->remarks }}</p>
-                                    <span class="created-at">{{ $item->updated_at }}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                <?php
-                }
-                ?>
-            </ul>
-        </div>
+
+          foreach ($itemsWithStatus as $item) {
+          ?>
+            <tr onclick="window.location='{{ route('item.show', $item->id) }}'" data-item-id="{{ $item->id }}">
+              <td>
+                <img src="{{ asset('uploads/image/' . $item->image) }}" alt="Item Image" class="rounded mx-auto d-block" style="width:100px;height:100px;">
+              </td>
+              <td>{{ $item->item_name }}</td>
+              <td>{{ $item->remarks }}</td>
+              <td>{{ $item->updated_at }}</td>
+            </tr>
+          <?php
+          }
+          ?>
+        </tbody>
+      </table>
     </div>
-</div>
-</div>
+    
+  </div>
 
-  
+
+
+
 </x-app-layout>
 
-
-
+@include('layouts.scripts.items-script')

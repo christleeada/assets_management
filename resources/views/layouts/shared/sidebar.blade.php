@@ -8,14 +8,26 @@
 
             <!-- menu profile quick info -->
             <div class="profile clearfix">
-              <div class="profile_pic">
-                <img src="{{asset('images/userprof.png')}}" alt="..." class="img-circle profile_img">
-              </div>
-              <div class="profile_info">
-                <span>Welcome,</span>
-                <h2>{{ Auth()->user()->first_name ?? ''}} {{ Auth()->user()->last_name ?? ''}}</h2>
-              </div>
+            <div class="profile_pic">
+            <img src="{{ asset('uploads/profilepic/' . (auth()->user()->profilepic ?? 'userprof.png')) }}"  class="rounded mx-auto d-block" style="width: 60px; height: 60px;">
+
             </div>
+            <div class="profile_info">
+              <span>Welcome, {{ Auth()->user()->first_name ?? 'Guest'}} </span>
+            </div>
+          </div>
+          <style>.profile {
+  display: flex;
+  align-items: center;
+}
+
+.profile_info {
+  margin-left: -10px;
+  margin-bottom: 10px;
+}
+</style>
+
+            
             <!-- /menu profile quick info -->
 
             <br />
@@ -33,7 +45,7 @@
                     <ul class="nav child_menu">
                       <li><a href="{{route('item.index')}}">Assets Records</a></li>
                       <li><a href="{{route('item.deletedAssets')}}">Deleted Assets</a></li>
-                      <li><a href="{{route('inventory.index')}}">Inventory (beta)</a></li>
+                      <li><a href="{{route('inventory.index')}}">Arrange Assets</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-users"></i> User Management <span class="fa fa-chevron-down"></span></a>

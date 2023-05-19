@@ -29,13 +29,13 @@
                                 <td class=" ">{{$value->message}}</td>
                                 <td class=" ">
                                     <div class="btn-group">
-                                        <a href="{{ route('item_category.edit', $value->id) }}" class="btn btn-info m-1 btn-sm rounded" title="Edit"><i class="fa fa-edit" small>&nbsp Edit</i></a>
+                                        <a href="{{ route('item_category.edit', $value->id) }}" class="btn btn-info m-1 btn-sm rounded" title="Edit"><i class="fa fa-edit" small></i></a>
 
                                         <form action="{{ route('item_category.destroy', $value->id) }}" method="POST">
 
                                             @csrf
                                             @method('DELETE')
-                                            <button class="btn btn-danger delete-header m-1 btn-sm rounded" title="Delete"><i class="fa fa-trash" small>&nbsp Delete</i></button>
+                                            <button class="btn btn-danger delete-header m-1 btn-sm rounded" title="Delete"><i class="fa fa-trash" small></i></button>
                                         </form>
                                     </div>
                                 </td>

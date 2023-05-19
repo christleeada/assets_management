@@ -18,6 +18,46 @@
 
                             @csrf
                             <div class="form-group row">
+                            <label for="profilepic" class="col-sm-2 col-form-label">Profile Picture</label>
+                            <div class="col-sm-10">
+                                <label for="profilepic" class="profilepic-label">
+                                <input type="file" name="profilepic" class="form-control" accept="image/" id="profilepic" style="display: none;">
+                                <img src="{{ asset('uploads/profilepic/' . (isset($user->profilepic) ? $user->profilepic : 'userprof.png')) }}" alt="User Profile Picture" class="rounded mx-auto d-block profilepic-img" style="width: 100px; height: 100px;">
+                                <span class="add-picture-text">+</span>
+                                </label>
+                            </div>
+                            </div>
+
+                                <style>
+                                .profilepic-label {
+                                    position: relative;
+                                    display: inline-block;
+                                    cursor: pointer;
+                                }
+
+                                .profilepic-img {
+                                    border: 1px solid #ccc;
+                                }
+
+                                .add-picture-text {
+                                    position: absolute;
+                                    top: 50%;
+                                    left: 50%;
+                                    transform: translate(-50%, -50%);
+                                    font-size: 14px;
+                                    color: #333;
+                                }
+                                </style>
+
+                                <script>
+                                // Trigger file input when the profile picture is clicked
+                                document.querySelector('.profilepic-img').addEventListener('click', function() {
+                                    document.getElementById('profilepic').click();
+                                });
+                                </script>
+
+
+                            <div class="form-group row">
                                 <label for="first_name" class="col-sm-2 col-form-label">First Name</label>
                                 <div class="col-sm-10">
                                     <input type="text" name="first_name" value="{{ old('first_name', isset($user->first_name) ? $user->first_name : '') }}" class="form-control" id="first_name">
@@ -57,7 +97,7 @@
                             <div class="form-group row">
                                 <label for="password" class="col-sm-2 col-form-label">Password</label>
                                 <div class="col-sm-10">
-                                    <input type="password" name="password" value="{{old('password', isset($user->password) ? $user->password : '')}}" class="form-control" id="password">
+                                    <input type="password" name="password" class="form-control" id="password">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -65,9 +105,9 @@
                                 <div class="col-sm-10">
                                 <select name="role" class="form-control" id="role">
                                 <option>Select User Role</option>
-                                <option value="Admin" {{ (old('role', isset($item->role) ? $item->role : '') == 'Admin') ? 'selected' : '' }}>Admin</option>
-                                <option value="Admin Officer" {{ (old('role', isset($item->role) ? $item->role : '') == 'Admin Officer') ? 'selected' : '' }}>Admin Officer</option>
-                                <option value="Staff" {{ (old('role', isset($item->role) ? $item->role : '') == 'Staff') ? 'selected' : '' }}>Staff</option>
+                                <option value="Admin" {{ (old('role', isset($user->role) ? $user->role : '') == 'Admin') ? 'selected' : '' }}>Admin</option>
+                                <option value="Admin Officer" {{ (old('role', isset($user->role) ? $user->role : '') == 'Admin Officer') ? 'selected' : '' }}>Admin Officer</option>
+                                <option value="Staff" {{ (old('role', isset($user->role) ? $user->role : '') == 'Staff') ? 'selected' : '' }}>Staff</option>
                                 
                                 </select>
                                 </div>

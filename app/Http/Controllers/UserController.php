@@ -31,31 +31,36 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $validatedData = $request->validate([
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'middle_name' => 'required',
-            'address' => 'required',
-            'contact_no' => 'required',
-            'email' => 'required',
-            'password' => 'required',
-            'role' => 'required',
-        ]);
-    
-        // $validatedData['post_status_id'] = $request->input('post_status_id', 1);
-        $validatedData['password'] = Hash::make($validatedData['password']);
+{
+    $validatedData = $request->validate([
+        'profilepic' => 'nullable',
+        'first_name' => 'required',
+        'last_name' => 'required',
+        'middle_name' => 'required',
+        'address' => 'required',
+        'contact_no' => 'required',
+        'email' => 'required',
+        'password' => 'required',
+        'role' => 'required',
+    ]);
 
-    
-        User::create($validatedData);
+    $validatedData['password'] = Hash::make($validatedData['password']);
 
-        $username = str_replace(' ', ' ', $request->first_name);
-
-        LogHelper::createLog(' added a user named '. $username);
-    
-        return redirect()->route('user.index')
-            ->with('success', 'User has been created successfully');
+    if ($request->hasfile('profilepic')) {
+        $filename = time() . '.' . $request->file('profilepic')->getClientOriginalExtension();
+        $request->file('profilepic')->move('uploads/profilepic/', $filename);
+        $validatedData['profilepic'] = $filename;
     }
+
+    User::create($validatedData);
+
+    $username = str_replace(' ', ' ', $request->first_name);
+
+    LogHelper::createLog(' added a user named '. $username);
+
+    return redirect()->route('user.index')->with('success', 'User has been created successfully');
+}
+
 
     /**
      * Display the specified resource.
@@ -71,7 +76,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $username = str_replace(' ', ' ', $user->first_name);
-        LogHelper::createLog('User edited user named '. $username);
+        LogHelper::createLog('edited user named '. $username);
         return view('layouts.users.create', compact('user'));
     }
 
@@ -81,6 +86,7 @@ class UserController extends Controller
     public function update(Request $request, User $user)
 {
     $validatedData = $request->validate([
+        'profilepic' => 'nullable',
         'first_name' => 'nullable',
         'last_name' => 'nullable',
         'middle_name' => 'nullable',
@@ -98,6 +104,11 @@ class UserController extends Controller
     } else {
         // Remove the password from the validated data to avoid updating it
         unset($validatedData['password']);
+    }
+    if ($request->hasfile('profilepic')) {
+        $filename = time() . '.' . $request->file('profilepic')->getClientOriginalExtension();
+        $request->file('profilepic')->move('uploads/profilepic/', $filename);
+        $validatedData['profilepic'] = $filename;
     }
 
     $user->update($validatedData);

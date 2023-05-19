@@ -65,6 +65,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/items.csv', [ItemController::class, 'exportCSV'])->name('item.csv')->withoutMiddleware(['auth']);
     Route::get('/items/print', [ItemController::class, 'print'])->name('item.print')->withoutMiddleware(['auth']);
     Route::get('/items/pdf', [ItemController::class, 'pdf'])->name('item.pdf')->withoutMiddleware(['auth']);
+    Route::get('/items/printqr', [ItemController::class, 'printqr'])->name('item.printqr')->withoutMiddleware(['auth']);
     Route::get('/', [ItemController::class, 'guestPage'])->name('guest.page')->withoutMiddleware(['auth']);
     
 

@@ -19,7 +19,7 @@
                         <thead>
                         <link href="{{ asset('asset/vendors/nprogress/support/style.css') }}" rel="stylesheet">
                             <tr class="headings">
-                                
+                                <th class="column-title">Profile pic</th>
                                 <th class="column-title">First name</th>
                                 <th class="column-title">Last name</th>
                                 <th class="column-title">Middle name</th>
@@ -35,7 +35,9 @@
                         <tbody>
                             @foreach($data as $value)
                             <tr class="even pointer">
-                            
+                            <td>
+                <img src="{{ asset('uploads/profilepic/' . $value->profilepic) }}" alt="User image" class="rounded mx-auto d-block" style="width:70px;height:70px;">
+              </td>
                                 <td class=" ">{{$value->first_name}}</td>
                                 <td class=" ">{{$value->last_name}}</td>
                                 <td class=" ">{{$value->middle_name}}</td>

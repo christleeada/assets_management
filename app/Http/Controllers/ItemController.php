@@ -35,8 +35,9 @@ class ItemController extends Controller
     $data = Item::with('status', 'itemCategory', 'unitType', 'inventoryType')->withoutTrashed()->get();
     
     $statuses = Status::all(); // Retrieve the statuses
+    $categories = ItemCategory::pluck('item_category', 'id');
     
-    return view('layouts.items.index', compact('data', 'statuses'));
+    return view('layouts.items.index', compact('data', 'statuses', 'categories'));
 }
 
    
@@ -64,12 +65,29 @@ class ItemController extends Controller
     $pdf = app('dompdf.wrapper');
     $pdf->loadView('layouts.items.print', compact('data'));
     $pdf->setPaper('A4', 'portrait');
-    $pdf->stream('items.pdf', ['Attachment' => false]);
+    $pdf->stream('layouts.items.pdf', ['Attachment' => false]);
 
 
     // Set the HTTP headers to display the PDF directly in the browser
     return $pdf->stream('items.pdf');
 }
+
+
+public function printqr()
+{
+    $data = Item::all();
+
+    $pdf = app('dompdf.wrapper');
+    $pdf->loadView('layouts.items.printqr', compact('data'));
+    $pdf->setPaper('A4', 'portrait');
+    $pdf->stream('layouts.items.printqr', ['Attachment' => false]);
+
+
+    // Set the HTTP headers to display the PDF directly in the browser
+    return $pdf->stream('items.printqr');
+}
+
+
     public function exportCSV()
     {
         $data = Item::all();
@@ -384,7 +402,7 @@ public function restore(Item $item, $id)
     if ($item->trashed()) {
         $item->restore();
         $itemName = str_replace(' ', ' ', $item->item_name);
-        LogHelper::createLog('restored '. $itemName . ' in assets');
+        LogHelper::createLog('restored '. $itemName . ' from deleted assets');
         return redirect()->route('item.deletedAssets')
             ->with('success', 'Item has been restored successfully.');
     }
@@ -401,7 +419,7 @@ public function fix(Item $item, $id) {
         $item->save();
 
         $itemName = str_replace(' ', ' ', $item->item_name);
-        LogHelper::createLog('User fixed '. $itemName . ' in assets');
+        LogHelper::createLog('fixed '. $itemName . ' in assets');
 
         return redirect()->route('item.index')
         ->with('success', 'Item has been fixed.');

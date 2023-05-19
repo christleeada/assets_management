@@ -13,8 +13,13 @@ class ItemCategoryController extends Controller
     public function index()
     {
         $data = ItemCategory::with('status')->get();
+     
         // dd($data);
         return view('layouts.item_categories.index',compact('data'));
+        $categories = ItemCategory::pluck('item_category', 'id');
+
+    return view('layouts.items.index', compact('categories'));
+        
     }
 
     /**

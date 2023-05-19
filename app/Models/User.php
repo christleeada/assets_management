@@ -35,6 +35,7 @@ class User extends Authenticatable
         'password',
         'post_status_id',
         'role',
+        'profilepic'
     ];
 
     /**

@@ -13,4 +13,5 @@ class LogHelper
         $log->user_id = auth()->id();
         $log->save();
     }
+    
 }
