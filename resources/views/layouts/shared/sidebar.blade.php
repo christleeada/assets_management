@@ -1,7 +1,7 @@
 <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="{{route('dashboard')}}" class="site_title">  <i class='fa fa-desktop'></i><span>CCS Assets</span></a>
+              <a href="{{route('item.dashboard')}}" class="site_title">  <i class='fa fa-desktop'></i><span> CCS Assets</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -9,7 +9,7 @@
             <!-- menu profile quick info -->
             <div class="profile clearfix">
             <div class="profile_pic">
-            <img src="{{ asset('uploads/profilepic/' . (auth()->user()->profilepic ?? 'userprof.png')) }}"  class="rounded mx-auto d-block" style="width: 60px; height: 60px;">
+            <img src="{{ asset('uploads/profilepic/' . (auth()->user()->profilepic ?? 'userprof.png')) }}"  class="rounded-circle mx-auto d-block" style="width: 60px; height: 60px;">
 
             </div>
             <div class="profile_info">
@@ -39,7 +39,7 @@
                 <ul class="nav side-menu">
                 <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
-                      <li><a href="{{route('dashboard')}}">Dashboard</a></li>
+                      <li><a href="{{route('item.dashboard')}}">Dashboard</a></li>
                     </ul>
                   <li><a><i class="fa fa-edit"></i> Assets <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">

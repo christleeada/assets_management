@@ -36,7 +36,7 @@
       var endDate = $('#endDate').val();
 
       $('#itemTable tbody tr').each(function() {
-        var dateAdded = $(this).find('td:eq(6)').text();
+        var dateAdded = $(this).find('td:eq(7)').text();
 
         if (startDate === '' && endDate === '') {
           $(this).show();

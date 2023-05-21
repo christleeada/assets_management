@@ -1,58 +1,52 @@
 <script>
 $(document).ready(function() {
-  $('#messagesButton').click(function() {
-    // Make an AJAX request to fetch the messages
-    $.ajax({
-      url: '{{ route("item.getMessages") }}',
-      type: 'GET',
-      dataType: 'json',
-      success: function(response) {
-        var messages = response.messages;
+  // Preload popover content during page load
+  $.ajax({
+    url: '{{ route("item.getMessages") }}',
+    type: 'GET',
+    dataType: 'json',
+    success: function(response) {
+      var messages = response.messages;
 
-        // Clear the existing dropdown list
-        $('#messagesList').empty();
+      // Clear the existing notifications list
+      $('#messagesList').empty();
 
-        // Generate dropdown list items
-        if (messages.length > 0) {
-          for (var i = 0; i < messages.length; i++) {
-            var message = messages[i];
-            if (message.advice !== ' ') {
-              var listItem = '<li class="recent-item list-group-item" onclick="window.location.href = \'' + message.link + '\'" data-item-id="' + message.id + '">' + message.item_name + ': ' + message.advice + '</li>';
+      // Generate notifications list items
+      if (messages.length > 0) {
+        for (var i = 0; i < messages.length; i++) {
+          var message = messages[i];
+          if (message.advice !== ' ') {
+            var listItem = '<li class="recent-item list-group-item" data-item-id="' + message.id + '">' +
+                            '<a href="' + message.link + '">' + message.item_name + '</a>: ' + message.advice +
+                            '</li>';
 
-              $('#messagesList').append(listItem);
-            }
+            $('#messagesList').append(listItem);
           }
-        } else {
-          var noMessageItem = '<li>No notifications</li>';
-          $('#messagesList').append(noMessageItem);
         }
-
-        // Show the dropdown
-        $('#messagesDropdown').dropdown('show');
-      },
-      error: function() {
-        
+      } else {
+        var noMessageItem = '<li>No notifications</li>';
+        $('#messagesList').append(noMessageItem);
       }
-    });
+    },
+    error: function() {
+      // Show error message
+      $('#messagesList').html('<li>Error fetching notifications.</li>');
+    }
   });
 
-  $('#closeButton').click(function() {
-    // Hide the dropdown
-    $('#messagesDropdown').dropdown('hide');
-    // Clear the existing dropdown list
-    $('#messagesList').empty();
-  });
-
-  $('#refreshButton').click(function() {
-    $.ajax({
-        type: 'GET',
-        dataType: 'html',
-        success: function(response) {
-            // Remove the alert and directly reload the page
-            location.reload();
-        }
-    });
+  // Initialize popover with fade animation and bottom placement
+  $('#messagesButton').popover({
+  html: true,
+  content: function() {
+    return $('#messagesPopoverContent').html();
+  },
+  placement: 'bottom'
 });
 
 });
+
+
+
+
+
 </script>

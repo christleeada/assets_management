@@ -39,6 +39,59 @@ class ItemController extends Controller
     
     return view('layouts.items.index', compact('data', 'statuses', 'categories'));
 }
+public function dashboard()
+    {
+        $totalstocks = DB::table('items')->sum('quantity');
+        
+        $countDeleted = DB::table('items')
+        ->whereNotNull('deleted_at') // Add this condition to count only soft-deleted items
+        ->count();
+
+        $userCount = DB::table('users')->count();
+
+        $itemsWithStatus = DB::table('items')
+            ->join('statuses', 'items.post_status_id', '=', 'statuses.id')
+            ->select('items.id', 'items.image', 'items.item_name', 'items.remarks', 'items.updated_at')
+            ->whereIn('statuses.status', ['Need Maintenance', 'Disposed', 'Defective'])
+            ->orderBy('items.created_at', 'desc')
+            ->limit(3) // Adjust the number of items to display
+            ->get();
+
+
+         $recentlyAdded = DB::table('items')
+              ->select('id', 'image', 'item_name', 'description', 'created_at')
+              ->orderBy('created_at', 'desc')
+              ->limit(6) // Adjust the number of recently added items to display
+              ->get();
+
+
+
+
+    
+
+        
+      
+      
+       
+        
+        $brandCounts = DB::table('items')
+            ->whereIn('brand', ["Apple", "Lenovo", "Dell", "Samsung", "Asus", "HP", "Razer", "Others"])
+            ->select('brand', DB::raw('SUM(quantity) as count'))
+            ->groupBy('brand')
+            ->pluck('count', 'brand')
+            ->toArray();
+        
+        return view('dashboard', [
+            'totalstocks' => $totalstocks,
+            'countDeleted' => $countDeleted,
+            'userCount' => $userCount,
+            'itemsWithStatus' => $itemsWithStatus,
+            'recentlyAdded' => $recentlyAdded,
+            
+          
+            'brandCounts' => $brandCounts,
+        ]);
+    }
 
    
     

@@ -18,43 +18,60 @@
 
                             @csrf
                             <div class="form-group row">
-                            <label for="profilepic" class="col-sm-2 col-form-label">Profile Picture</label>
-                            <div class="col-sm-10">
-                                <label for="profilepic" class="profilepic-label">
-                                <input type="file" name="profilepic" class="form-control" accept="image/" id="profilepic" style="display: none;">
-                                <img src="{{ asset('uploads/profilepic/' . (isset($user->profilepic) ? $user->profilepic : 'userprof.png')) }}" alt="User Profile Picture" class="rounded mx-auto d-block profilepic-img" style="width: 100px; height: 100px;">
-                                <span class="add-picture-text">+</span>
-                                </label>
-                            </div>
-                            </div>
+    <label for="profilepic" class="col-sm-2 col-form-label">Profile Picture</label>
+    <div class="col-sm-10">
+        <label for="profilepic" class="profilepic-label">
+            <input type="file" name="profilepic" class="form-control" accept="image/" id="profilepic" style="display: none;">
+            <div class="profilepic-container">
+                <div class="profilepic-wrapper">
+                    <img src="{{ asset('uploads/profilepic/' . (isset($user->profilepic) ? $user->profilepic : 'userprof.png')) }}" alt="User Profile Picture" class="profilepic-img">
+                </div>
+                
+            </div>
+        </label>
+    </div>
+</div>
 
-                                <style>
-                                .profilepic-label {
-                                    position: relative;
-                                    display: inline-block;
-                                    cursor: pointer;
-                                }
+<style>
+.profilepic-label {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
 
-                                .profilepic-img {
-                                    border: 1px solid #ccc;
-                                }
+.profilepic-container {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+}
 
-                                .add-picture-text {
-                                    position: absolute;
-                                    top: 50%;
-                                    left: 50%;
-                                    transform: translate(-50%, -50%);
-                                    font-size: 14px;
-                                    color: #333;
-                                }
-                                </style>
+.profilepic-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-                                <script>
-                                // Trigger file input when the profile picture is clicked
-                                document.querySelector('.profilepic-img').addEventListener('click', function() {
-                                    document.getElementById('profilepic').click();
-                                });
-                                </script>
+.profilepic-img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+
+</style>
+
+                                
 
 
                             <div class="form-group row">

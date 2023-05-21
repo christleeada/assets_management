@@ -44,8 +44,7 @@
             <tr>
                 <th>QR Code</th>
                 <th>Name</th>
-                <th>SKU No</th>
-                <th>UPC No</th>
+              
                 <th>Price</th>
                 <th>Category</th>
                 <th>Quantity</th>
@@ -61,8 +60,7 @@
                 <tr>
                 <td><img class="qr-code" src="data:image/png;base64,{{ $value->qrcode_image }}" alt="QR Code"></td>
                     <td>{{ $value->item_name }}</td>
-                    <td>{{ $value->sku_no }}</td>
-                    <td>{{ $value->upc_no }}</td>
+                  
                     <td>{{ $value->price }}</td>
                     <td>{{ $value->itemCategory->item_category }}</td>
                     <td>{{ $value->quantity }}</td>
