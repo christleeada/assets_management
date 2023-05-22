@@ -69,6 +69,8 @@ class Kernel extends HttpKernel
         // ...
         
         'admin_or_officer' => \App\Http\Middleware\AdminOrOfficerMiddleware::class,
+      
+
 
     ];
     

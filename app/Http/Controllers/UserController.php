@@ -75,9 +75,12 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        
         $username = str_replace(' ', ' ', $user->first_name);
         LogHelper::createLog('edited user named '. $username);
         return view('layouts.users.create', compact('user'));
+        
+    
     }
 
     /**
