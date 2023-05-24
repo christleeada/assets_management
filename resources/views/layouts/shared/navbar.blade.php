@@ -20,6 +20,11 @@
             </div>
           @endif
         </li>
+        <li class="nav-item">
+          <a class="about-button" href="{{ route('about-us') }}" style="margin-right: 10px;">
+            <i class="fa fa-info-circle"></i> About Us
+          </a>
+        </li>
         @guest
   <li class="nav-item">
     <a class="dropdown-item" href="{{ route('login') }}">
