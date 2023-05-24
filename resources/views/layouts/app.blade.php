@@ -49,6 +49,9 @@
                 @include('layouts.shared.footer')
             </div>
         </div>
+        
+        <!-- Font Awesome v6 -->
+        <script src="https://kit.fontawesome.com/1798ce9a0f.js" crossorigin="anonymous"></script>
 
          <!-- jQuery -->
         <script src="{{URL::asset('asset/vendors/jquery/dist/jquery.min.js')}}"></script>
