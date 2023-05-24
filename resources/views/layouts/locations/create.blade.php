@@ -41,7 +41,7 @@
                                 </div>
                             </div>
                             <button  type="" class="btn btn-primary float-sm-right">Add</button>
-                            <a  class="btn btn-warning float-sm-left">Cancel</a>
+                            <a href="" class="btn btn-warning float-sm-left">Cancel</a>
                         </form>
                 </div>
             </div>

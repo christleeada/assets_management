@@ -13,21 +13,18 @@ class LocationController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
+    {    
+        $departments = Department::all();
         $data = Location::with('status','department')->get();
         // dd($data);
-        return view('layouts.locations.index',compact('data'));
+        return view('layouts.locations.index',compact('data', 'departments'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
     public function create(){
-        $departments = Department::all();
         
-        return view('layouts.locations.create')
-            
-            ->with('departments',$departments);
     }
     
     
@@ -71,11 +68,7 @@ class LocationController extends Controller
      */
     public function edit(location $location)
     {
-        $departments = Department::all();
         
-        return view('layouts.locations.create')
-        ->with('location',$location)
-        ->with('departments',$departments);
     }
 
     /**
@@ -89,11 +82,13 @@ class LocationController extends Controller
         }
        
         $validatedData = $request->validate([
-            'dept_id' => 'required',
+            'dept_id' => 'nullable',
             'location_name' => 'required',
             'location_address' => 'required',
             'post_status_id' => 'required',
         ]);
+
+        
     
        $location->update($validatedData);
     

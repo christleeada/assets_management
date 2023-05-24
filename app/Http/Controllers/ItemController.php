@@ -31,14 +31,16 @@ class ItemController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-{
-    $data = Item::with('status', 'itemCategory', 'unitType', 'inventoryType')->withoutTrashed()->get();
+    {
+        $data = Item::with('status', 'itemCategory', 'unitType', 'inventoryType')->withoutTrashed()->get();
+        $categories = ItemCategory::all();
+        $unit_types = UnitType::all();
+        $inventory_types = InventoryType::all();
+        $statuses = Status::all();
     
-    $statuses = Status::all(); // Retrieve the statuses
-    $categories = ItemCategory::pluck('item_category', 'id');
+        return view('layouts.items.index', compact('data', 'categories', 'unit_types', 'inventory_types', 'statuses'));
+    }
     
-    return view('layouts.items.index', compact('data', 'statuses', 'categories'));
-}
 
 
    
@@ -128,15 +130,9 @@ public function printqr()
     public function create()
     {
 
-        $categories = ItemCategory::all();
-        $unit_types = UnitType::all();
-        $inventory_types = InventoryType::all();
-        $statuses = Status::all();
-        return view('layouts.items.create')
-            ->with('categories', $categories)
-            ->with('unit_types', $unit_types)
-            ->with('inventory_types', $inventory_types)
-            ->with('statuses', $statuses);
+       
+      
+           
     }
 
 
@@ -305,16 +301,9 @@ public function guestPage()
      */
     public function edit(Item $item)
     {
-        $statuses  = Status::all();
-        $categories  = ItemCategory::all();
-        $unit_types = UnitType::all();
-        $inventory_types = InventoryType::all();
-        return view('layouts.items.create')
-            ->with('categories', $categories)
-            ->with('unit_types', $unit_types)
-            ->with('statuses', $statuses)
-            ->with('inventory_types', $inventory_types)
-            ->with('item', $item);
+       
+        
+            
     }
 
     /**
@@ -322,6 +311,10 @@ public function guestPage()
      */
     public function update(Request $request, Item $item)
     {
+        $statuses  = Status::all();
+        $categories  = ItemCategory::all();
+        $unit_types = UnitType::all();
+        $inventory_types = InventoryType::all();
 
 
         $validatedData = $request->validate([
@@ -358,7 +351,12 @@ public function guestPage()
         $itemName = str_replace(' ', ' ', $item->item_name);
         LogHelper::createLog('updated '. $itemName . ' in assets');
         return redirect()->route('item.index')
-            ->with('info', 'Item has been updated successfully');
+            ->with('info', 'Item has been updated successfully')
+            ->with('categories', $categories)
+            ->with('unit_types', $unit_types)
+            ->with('statuses', $statuses)
+            ->with('inventory_types', $inventory_types)
+            ->with('item', $item);
     }
 
 

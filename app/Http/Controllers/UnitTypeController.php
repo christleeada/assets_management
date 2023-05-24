@@ -22,7 +22,7 @@ class UnitTypeController extends Controller
      */
     public function create()
     {
-        return view('layouts.unit_types.create');
+        
     }
 
     /**
@@ -61,7 +61,7 @@ class UnitTypeController extends Controller
      */
     public function edit(UnitType $unit_type)
     {
-        return view('layouts.unit_types.create',compact('unit_type'));
+       
     }
 
     /**

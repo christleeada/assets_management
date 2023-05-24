@@ -24,7 +24,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('layouts.users.create');
+        
     }
 
     /**
@@ -48,9 +48,15 @@ class UserController extends Controller
 
     if ($request->hasfile('profilepic')) {
         $filename = time() . '.' . $request->file('profilepic')->getClientOriginalExtension();
+        
         $request->file('profilepic')->move('uploads/profilepic/', $filename);
         $validatedData['profilepic'] = $filename;
     }
+    // If the user has not uploaded a profile picture, use the default image
+    if (!isset($validatedData['profilepic'])) {
+        $validatedData['profilepic'] = 'userprof.png';
+    }
+   
 
     User::create($validatedData);
 
@@ -65,9 +71,9 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(User $user)
+    public function showProfile(User $user)
     {
-        //
+        
     }
 
     /**
@@ -76,9 +82,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
         
-        $username = str_replace(' ', ' ', $user->first_name);
-        LogHelper::createLog('edited user named '. $username);
-        return view('layouts.users.create', compact('user'));
+       
         
     
     }
@@ -87,41 +91,48 @@ class UserController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, User $user)
-{
-    $validatedData = $request->validate([
-        'profilepic' => 'nullable',
-        'first_name' => 'nullable',
-        'last_name' => 'nullable',
-        'middle_name' => 'nullable',
-        'address' => 'nullable',
-        'contact_no' => 'nullable',
-        'email' => 'nullable',
-        'password' => 'nullable',
-        'role' => 'required',
-    ]);
-
-    // Check if the password is provided and not empty
-    if ($request->filled('password')) {
-        // Encrypt the password using bcrypt
-        $validatedData['password'] = Hash::make($validatedData['password']);
-    } else {
-        // Remove the password from the validated data to avoid updating it
-        unset($validatedData['password']);
+    {
+        $validatedData = $request->validate([
+            'profilepic' => 'nullable',
+            'first_name' => 'nullable',
+            'last_name' => 'nullable',
+            'middle_name' => 'nullable',
+            'address' => 'nullable',
+            'contact_no' => 'nullable',
+            'email' => 'nullable',
+            'password' => 'nullable',
+            'role' => 'required',
+        ]);
+    
+        // Check if the password is provided and not empty
+        if ($request->filled('password')) {
+            // Encrypt the password using bcrypt
+            $validatedData['password'] = Hash::make($validatedData['password']);
+        } else {
+            // Remove the password from the validated data to avoid updating it
+            unset($validatedData['password']);
+        }
+    
+        if ($request->hasfile('profilepic')) {
+            $filename = time() . '.' . $request->file('profilepic')->getClientOriginalExtension();
+            $request->file('profilepic')->move('uploads/profilepic/', $filename);
+            $validatedData['profilepic'] = $filename;
+        }
+        if (!isset($validatedData['profilepic'])) {
+            $validatedData['profilepic'] = 'userprof.png';
+        }
+       
+        
+    
+        $user->update($validatedData);
+    
+        $username = str_replace(' ', ' ', $user->first_name);
+        LogHelper::createLog('updated user named ' . $username);
+    
+        return redirect()->route('user.index')
+            ->with('info', 'User has been updated successfully');
     }
-    if ($request->hasfile('profilepic')) {
-        $filename = time() . '.' . $request->file('profilepic')->getClientOriginalExtension();
-        $request->file('profilepic')->move('uploads/profilepic/', $filename);
-        $validatedData['profilepic'] = $filename;
-    }
-
-    $user->update($validatedData);
-
-    $username = str_replace(' ', ' ', $user->first_name);
-    LogHelper::createLog('Updated user named ' . $username);
-
-    return redirect()->route('user.index')
-        ->with('info', 'User has been updated successfully');
-}
+    
 
     /**
      * Remove the specified resource from storage.
@@ -136,7 +147,7 @@ class UserController extends Controller
     }
     
     $username = str_replace(' ', ' ', $user->first_name);
-    LogHelper::createLog('User deleted '. $username . ' from users');
+    LogHelper::createLog('deleted '. $username . ' from users');
 
     $user->delete();
 
@@ -162,7 +173,7 @@ public function restore($id)
     if ($user->trashed()) {
         $user->restore();
         $username = str_replace(' ', ' ', $user->first_name);
-        LogHelper::createLog('User restored '. $username . ' in users');
+        LogHelper::createLog('restored '. $username . ' in users');
         return redirect()->route('user.deletedUsers')
             ->with('success', 'user has been restored successfully.');
     }

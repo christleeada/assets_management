@@ -22,7 +22,7 @@ class InventoryTypeController extends Controller
      */
     public function create()
     {
-        return view('layouts.inventory_types.create');
+        
     }
 
     /**
@@ -61,7 +61,7 @@ class InventoryTypeController extends Controller
      */
     public function edit(InventoryType $inventoryType)
     {
-        return view('layouts.inventory_types.create',compact('inventoryType'));
+        
     }
 
     /**

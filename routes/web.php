@@ -12,6 +12,7 @@ use App\Http\Controllers\PrefixController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RecommendationController;
 use App\Helpers\LogHelper;
 use Illuminate\Support\Facades\Auth;
 

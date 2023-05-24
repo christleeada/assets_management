@@ -101,16 +101,6 @@
 </x-app-layout>
 @include('layouts.scripts.items-script')
 @include('layouts.scripts.messages-script')
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        new Magnifier({
-            magnifier: ".magnifier",
-            container: ".magnifier-container",
-            cursor: "crosshair",
-            zoom: 3,
-            zoomable: true
-        });
-    });
-</script>
+
 
 

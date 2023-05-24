@@ -13,7 +13,7 @@ class DepartmentController extends Controller
     public function index()
     {
         $data = Department::with('status')->get();
-        // dd($data);
+        
         return view('layouts.departments.index',compact('data'));
     }
 
@@ -22,7 +22,7 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        return view('layouts.departments.create');
+        
     }
 
     /**
@@ -62,7 +62,7 @@ class DepartmentController extends Controller
      */
     public function edit(Department $department)
     {
-        return view('layouts.departments.create',compact('department'));
+        
     }
 
     /**

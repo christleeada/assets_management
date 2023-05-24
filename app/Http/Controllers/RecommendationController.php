@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use Illuminate\Http\Request;
 
-class RecommendationConmtroller extends Controller
+class RecommendationController extends Controller
 {
     public function notifications()
 {

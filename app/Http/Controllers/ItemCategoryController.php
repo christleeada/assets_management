@@ -27,7 +27,7 @@ class ItemCategoryController extends Controller
      */
     public function create()
     {
-        return view('layouts.item_categories.create');
+        
     }
 
     /**
@@ -52,7 +52,7 @@ class ItemCategoryController extends Controller
         ItemCategory::create($validatedData);
     
         return redirect()->route('item_category.index')
-            ->with('success', 'Item Category has been created successfully');
+            ->with('success', 'Asset Category has been created successfully');
     }
 
     /**
@@ -68,7 +68,7 @@ class ItemCategoryController extends Controller
      */
     public function edit(ItemCategory $itemCategory)
     {
-        return view('layouts.item_categories.create',compact('itemCategory'));
+        
     }
 
     /**
@@ -91,7 +91,7 @@ class ItemCategoryController extends Controller
        $itemCategory->update($validatedData);
     
         return redirect()->route('item_category.index')
-            ->with('info', 'Item category has been updated successfully');
+            ->with('info', 'Asset category has been updated successfully');
     }
     
 
@@ -103,6 +103,6 @@ class ItemCategoryController extends Controller
         $itemCategory->delete();
     
         return redirect()->route('item_category.index')
-            ->with('danger', 'Item category has been deleted successfully');
+            ->with('danger', 'Asset category has been deleted successfully');
     }
 }
