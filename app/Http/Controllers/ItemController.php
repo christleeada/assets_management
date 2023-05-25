@@ -209,8 +209,8 @@ public function printqr()
 
     LogHelper::createLog('User added '. $itemName . ' to assets');
 
-    return redirect()->route('item.index')->with('success', 'Item created successfully.');
-}
+    return redirect()->route('item.index')->with('success', 'Asset added successfully.');
+} 
 
 
 public static function generateAdviceForAllItems()
