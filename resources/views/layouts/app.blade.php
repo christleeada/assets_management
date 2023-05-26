@@ -29,8 +29,11 @@
         <!-- Custom Theme Style -->
         <link href="{{asset('asset/build/css/custom.min.css')}}" rel="stylesheet">
 
+        <!-- DataTable buttons -->
+     
         <link href="{{asset('asset/DataTables/datatables.min.css')}}" rel="stylesheet"/>
-
+       
+        
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
@@ -94,6 +97,12 @@
         <!-- Custom Theme Scripts -->
         <script src="{{URL::asset('asset/build/js/custom.min.js')}}"></script>
         <script src="{{URL::asset('asset/DataTables/datatables.min.js')}}"></script>
+        <script src="{{URL::asset('asset/DataTables/dataTables.buttons.min.js')}}"></script>
+        <script src="{{URL::asset('asset/DataTables/buttons.html5.min.js')}}"></script>   
+        <script src="{{URL::asset('asset/DataTables/buttons.print.min.js')}}"></script>
+        <script src="{{URL::asset('asset/DataTables/pdfmake.min.js')}}"></script>
+        <script src="{{URL::asset('asset/DataTables/jszip.min.js')}}"></script>
+        <script src="{{URL::asset('asset/DataTables/vfs_fonts.js')}}"></script>
 
         <!-- Magnifier -->
         <script src="{{URL::asset('asset/vendors/magnifier.js/magnifier.js')}}"></script>

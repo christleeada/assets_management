@@ -180,7 +180,7 @@ public function printqr()
 
     // Generate the QR code as a binary string
     $qrCode = QrCode::format('png')
-                    ->size(400)
+                    ->size(100)
                     ->errorCorrection('H')
                     ->generate($itemLink);
 
@@ -207,7 +207,7 @@ public function printqr()
     
 
 
-    LogHelper::createLog('User added '. $itemName . ' to assets');
+    LogHelper::createLog(' added '. $itemName . ' to assets');
 
     return redirect()->route('item.index')->with('success', 'Asset added successfully.');
 } 
@@ -260,9 +260,11 @@ public function getMessages()
 public function guestPage()
 {
     // Retrieve the data you want to display in the table
+    $categories = ItemCategory::all();
     $data = Item::all(); // Replace `Item` with your actual model name or query logic
+
     
-    return view('welcome', ['data' => $data]);
+    return view('welcome', ['data' => $data,'categories' => $categories]);
 }
 
 

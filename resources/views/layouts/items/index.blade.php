@@ -197,6 +197,7 @@
               box-shadow: 0 0 4px #bbb;
             }
           </style>
+          
           <select id="filterDropdown" class="custom-dropdown">
             <option value="">All</option>
             @foreach ($categories as $category)
@@ -204,14 +205,11 @@
             @endforeach
           </select>
 
+          
 
 
+          
 
-          <a href="{{ route('item.csv') }}" class="btn btn-success m-1 btn-sm rounded">CSV</a>
-          <span style="padding-left: 5px;"></span>
-          <a href="{{ route('item.pdf') }}" class="btn btn-info m-1 btn-sm rounded">PDF</a>
-          <span style="padding-left: 5px;"></span>
-          <a href="{{ route('item.print') }}" class="btn btn-primary m-1 btn-sm rounded">Print</a>
           <span style="padding-left: 5px;"></span>
           <a href="{{ route('item.printqr') }}" class="btn btn-primary m-1 btn-sm rounded">Print QR Codes</a>
           <table id="itemTable" class="table table-striped jambo_table bulk_action">
@@ -329,12 +327,55 @@
 
 
 
-                    <!-- Asset update modal -->
+                    
 
         
 
-                  <!-- Modal -->
-                  <div class="modal fade" id="editModal{{ $value->id }}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                  
+
+
+
+
+
+
+
+
+
+
+
+                    <form action="{{ route('item.markAsDeleted', $value->id) }}" method="POST" style="display: inline;">
+                      @method('PUT')
+                      @csrf
+                      <button class="btn btn-danger delete-header m-1 btn-sm rounded" title="Delete">
+                        <i class="fa fa-trash sm"></i>
+                      </button>
+                    </form>
+
+
+
+
+                  </div>
+                </td>
+                </td>
+              </tr>
+
+              @endforeach
+            </tbody>
+
+          </table>
+
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</x-app-layout>
+@include('layouts.scripts.items-script')
+@include('layouts.scripts.messages-script')
+
+<!-- Modal -->
+<div class="modal fade" id="editModal{{ $value->id }}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
                       <div class="modal-dialog" role="document">
                           <div class="modal-content">
                               <div class="modal-header">
@@ -477,47 +518,6 @@
                           </div>
                       </div>
                   </div>
-
-
-
-
-
-
-
-
-
-
-
-                    <form action="{{ route('item.markAsDeleted', $value->id) }}" method="POST" style="display: inline;">
-                      @method('PUT')
-                      @csrf
-                      <button class="btn btn-danger delete-header m-1 btn-sm rounded" title="Delete">
-                        <i class="fa fa-trash sm"></i>
-                      </button>
-                    </form>
-
-
-
-
-                  </div>
-                </td>
-                </td>
-              </tr>
-
-              @endforeach
-            </tbody>
-
-          </table>
-
-        </div>
-
-
-      </div>
-    </div>
-  </div>
-</x-app-layout>
-@include('layouts.scripts.items-script')
-@include('layouts.scripts.messages-script')
 
 
 

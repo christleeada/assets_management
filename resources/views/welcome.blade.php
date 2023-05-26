@@ -3,22 +3,44 @@
         @include('layouts.flash.flash')
         <div class="x_panel">
             <div class="x_content">
+            <style>
+            .custom-dropdown {
+              padding: 5px 10px;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+              background-color: #f9f9f9;
+              color: #0B2447;
+              font-size: 14px;
+              width: 200px;
+            }
+
+            .custom-dropdown:hover {
+              background-color: #e0e0e0;
+            }
+
+            .custom-dropdown:focus {
+              outline: none;
+              box-shadow: 0 0 4px #bbb;
+            }
+          </style>
+          
+          <select id="filterDropdown" class="custom-dropdown">
+            <option value="">All</option>
+            @foreach ($categories as $category)
+            <option value="{{ $category->item_category }}">{{ $category->item_category }}</option>
+            @endforeach
+          </select>
+          <a href="{{ route('item.printqr') }}" class="btn btn-primary m-1 btn-sm rounded">Print QR Codes</a>
 
                 
 
                 <div class="table-responsive">
 
-                <div class="magnifier-container">
-                <div class="magnifier"></div>
-                </div>
+                
                     <table id="itemTable" class="table table-striped jambo_table bulk_action">
                     
         @csrf
-        <a href="{{ route('item.csv') }}" class="btn btn-success m-1 btn-sm rounded">CSV</a>
-        <span style="padding-left: 10px;" ></span>
-        <a  href="{{ route('item.pdf') }}" class="btn btn-info m-1 btn-sm rounded">PDF</a>
-        <span style="padding-left: 10px;" ></span>
-        <a href="{{ route('item.print') }}" class="btn btn-primary m-1 btn-sm rounded">Print</a>
+        
     </form>
     
                     
