@@ -1,6 +1,5 @@
-
-
 <script>
+  
   $(document).ready(function() {
   var table = $('#itemTable').DataTable({
     paging: true,
@@ -39,6 +38,18 @@
     ]
   });
 
+  function filterByCategory() {
+    var categoryFilter = $('#filterDropdown').val();
+
+    table.column(3).search(categoryFilter).draw();
+  }
+
+  // Event listener for the category filter dropdown
+  $('#filterDropdown').change(function() {
+    filterByCategory();
+  });
+
+  // Add date filtering functionality
   $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
     var startDate = $('#startDate').val();
     var endDate = $('#endDate').val();
@@ -47,7 +58,7 @@
       return true;
     }
 
-    var dateAdded = moment(data[7], 'YYYY-MM-DD'); // Assuming date format 'YYYY-MM-DD'
+    var dateAdded = moment(data[7], 'YYYY-MM-DD');
 
     if (startDate === '' && endDate !== '') {
       return dateAdded.isSameOrBefore(endDate);
@@ -64,13 +75,12 @@
   });
 
   $('#clearFilter').click(function() {
+    $('#filterDropdown').val(''); // Clear category filter
     $('#startDate').val('');
     $('#endDate').val('');
     table.draw();
   });
-});
-
-    
+});    
 </script>
 
 
