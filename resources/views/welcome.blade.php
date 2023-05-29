@@ -30,7 +30,7 @@
             <option value="{{ $category->item_category }}">{{ $category->item_category }}</option>
             @endforeach
           </select>
-          <a href="{{ route('item.printqr') }}" class="btn btn-primary m-1 btn-sm rounded">Print QR Codes</a>
+         
           <button type="button" class="btn btn-success m-1 btn-sm rounded" data-toggle="modal" data-target="#filterModal">
               Date Filter
             </button>

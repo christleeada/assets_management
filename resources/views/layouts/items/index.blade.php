@@ -319,28 +319,9 @@
                       </button>
                     </form>
                     @endif
-                    <button class="btn btn-info m-1 btn-sm rounded" title="Edit" data-toggle="modal" data-target="#editModal{{ $value->id }}">
+                    <button class="btn btn-info m-1 btn-sm rounded" title="Edit" data-toggle="modal" data-target="#editModal{{ isset($value) ? $value->id : '' }}">
                         <i class="fa fa-edit sm"></i>
                     </button>
-
-
-
-
-
-                    
-
-        
-
-                  
-
-
-
-
-
-
-
-
-
 
 
                     <form action="{{ route('item.markAsDeleted', $value->id) }}" method="POST" style="display: inline;">
@@ -350,11 +331,7 @@
                         <i class="fa fa-trash sm"></i>
                       </button>
                     </form>
-
-
-
-
-                  </div>
+                    </div>
                 </td>
                 </td>
               </tr>
@@ -375,7 +352,7 @@
 @include('layouts.scripts.messages-script')
 
 <!-- Modal -->
-<div class="modal fade" id="editModal{{ $value->id }}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+<div class="modal fade" id="editModal{{ isset($value) ? $value->id : '' }}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
                       <div class="modal-dialog" role="document">
                           <div class="modal-content">
                               <div class="modal-header">
@@ -386,7 +363,7 @@
                               </div>
                               <div class="modal-body">
                                   <!-- Place your form code here -->
-                                  <form method="post" action="{{ route('item.update', ['item' => $value->id]) }}" enctype="multipart/form-data" class="form-horizontal">
+                                  <form method="post" action="{{ isset($value) ? route('item.update', ['item' => $value->id]) : '' }}" enctype="multipart/form-data" class="form-horizontal">
                                                     @csrf
                                                     @method('PUT')
                                      
@@ -396,7 +373,7 @@
                                       <div class="form-group row">
                                     <label for="post_status_id" class="col-sm-2 col-form-label">Status</label>
                                     <div class="col-sm-10">
-                                        <select name="post_status_id" class="form-control" id="item{{$value->post_status_id}}" value="{{$value->post_status_id}}">
+                                    <select name="post_status_id" class="form-control" id="item{{ isset($value) ? $value->post_status_id : '' }}" value="{{ isset($value) ? $value->post_status_id : '' }}">
                                             <option>Select Status</option>
                                             @foreach ($statuses as $status)
                                             <option value="{{ $status->id }}" {{ old('post_status_id', isset($value->post_status_id) ? $value->post_status_id : '') == $status->id ? 'selected' : '' }}>
@@ -409,7 +386,7 @@
                                 <div class="form-group row">
                                     <label for="item_name" class="col-sm-2 col-form-label"> Asset Name</label>
                                     <div class="col-sm-10">
-                                        <input type="text" name="item_name" class="form-control"id="item{{$value->item_name}}" value="{{$value->item_name}}">
+                                        <input type="text" name="item_name" class="form-control" id="item{{ isset($value) ? $value->item_name : '' }}" value="{{ isset($value) ? $value->item_name : '' }}">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -437,19 +414,19 @@
                                 <div class="form-group row">
                                     <label for="description" class="col-sm-2 col-form-label">Description</label>
                                     <div class="col-sm-10">
-                                        <input type="text" name="description" id="item{{$value->description}}" value="{{$value->description}}" class="form-control">
+                                        <input type="text" name="description" id="item{{ isset($value) ? $value->description : '' }}" value="{{ isset($value) ? $value->description : '' }}" class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="price" class="col-sm-2 col-form-label">Price</label>
                                     <div class="col-sm-10">
-                                     <input type="text" name="price" id="item{{$value->price}}" value="{{$value->price}}" class="form-control">
+                                     <input type="text" name="price" id="item{{ isset($value) ? $value->price : '' }}" value="{{ isset($value) ? $value->price : '' }}" class="form-control">
                                     </div>
                                 </div>
                              <div class="form-group row">
                             <label for="item_category" class="col-sm-2 col-form-label">Item Category</label>
                             <div class="col-sm-10">
-                                <select name="item_category" id="item{{$value->item_category}}" class="form-control" value="{{$value->item_category}}">
+                                <select name="item_category" id="item{{ isset($value) ? $value->item_category : '' }}" value="{{ isset($value) ? $value->item_category : '' }}" class="form-control" >
                                     <option>Select Category</option>
                                     @foreach ($categories as $category)
                                     <option value="{{ $category->id }}" {{ old('item_category', isset($value->item_category) ? $value->item_category : '') == $category->id ? 'selected' : '' }}>
@@ -463,7 +440,7 @@
                                 <div class="form-group row">
                               <label for="unit_type" class="col-sm-2 col-form-label">Unit Type</label>
                               <div class="col-sm-10">
-                                  <select name="unit_type" class="form-control" id="item{{$value->id}}"  value="{{$value->unit_type}}">
+                                  <select name="unit_type" class="form-control"id="item{{ isset($value) ? $value->unit_type : '' }}" value="{{ isset($value) ? $value->unit_type : '' }}">
                                       <option>Select Unit Type</option>
                                       @foreach ($unit_types as $unit_type)
                                           <option value="{{ $unit_type->id }}" {{ (old('unit_type', isset($value->unit_type) ? $value->unit_type : '') == $unit_type->id) ? 'selected' : '' }}>
@@ -477,22 +454,23 @@
                                 <div class="form-group row">
                                     <label for="quantity" class="col-sm-2 col-form-label">Quantity</label>
                                     <div class="col-sm-10">
-                                    <input type="number" name="price" id="item{{$value->quantity}}" value="{{$value->quantity}}" class="form-control">
+                                    <input type="number" name="price" id="item{{ isset($value) ? $value->quantity : '' }}" value="{{ isset($value) ? $value->quantity : '' }}" class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="date_purchased" class="col-sm-2 col-form-label">Purchase Date</label>
                                     <div class="col-sm-10">
-                                    <input type="date" name="date_purchased" id="item{{$value->date_purchased}}" value="{{$value->date_purchased}}" class="form-control">
+                                    <input type="date" name="date_purchased" id="item{{ isset($value) ? $value->date_purchased : '' }}" value="{{ isset($value) ? $value->date_purchased : '' }}" class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                   <label for="purchased_as" class="col-sm-2 col-form-label">Condition</label>
                                   <div class="col-sm-10">
-                                      <select name="purchased_as" class="form-control" id="item{{$value->id}}"  value="{{$value->purchased_as}}">
+                                      <select name="purchased_as" class="form-control" id="item{{ isset($value) ? $value->purchased_as : '' }}" value="{{ isset($value) ? $value->purchased_as : '' }}">
                                           <option>Select</option>
-                                          <option value="New" {{ (old('purchased_as', $value->purchased_as) == 'New') ? 'selected' : '' }}>New</option>
-                                          <option value="Used" {{ (old('purchased_as', $value->purchased_as) == 'Used') ? 'selected' : '' }}>Used</option>
+                                          <option value="New" {{ (old('purchased_as', isset($value) && $value->purchased_as == 'New') ? 'selected' : '') }}>New</option>
+                                          <option value="Used" {{ (old('purchased_as', isset($value) && $value->purchased_as == 'Used') ? 'selected' : '') }}>Used</option>
+
                                           
                                       </select>
                                   </div>
@@ -500,13 +478,13 @@
                                 <div class="form-group row">
                                     <label for="remarks" class="col-sm-2 col-form-label">Remarks</label>
                                     <div class="col-sm-10">
-                                    <input type="text" name="remarks" id="item{{$value->remarks}}" value="{{$value->remarks}}" class="form-control">
+                                    <input type="text" name="remarks" id="item{{ isset($value) ? $value->remarks : '' }}" value="{{ isset($value) ? $value->remarks : '' }}" class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="image" class="col-sm-2 col-form-label">Image</label>
                                     <div class="col-sm-10">
-                                        <input type="file" name="image" id="item{{$value->image}}" value="{{$value->image}}" class="form-control" accept="image/">
+                                        <input type="file" name="image" id="item{{ isset($value) ? $value->image : '' }}" value="{{ isset($value) ? $value->image : '' }}" class="form-control" accept="image/">
                                     </div>
                                 </div>
                                       <div>
