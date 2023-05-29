@@ -37,18 +37,15 @@
       }
     ]
   });
-
   function filterByCategory() {
     var categoryFilter = $('#filterDropdown').val();
 
     table.column(3).search(categoryFilter).draw();
   }
-
   // Event listener for the category filter dropdown
   $('#filterDropdown').change(function() {
     filterByCategory();
   });
-
   // Add date filtering functionality
   $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
     var startDate = $('#startDate').val();
@@ -68,12 +65,10 @@
       return dateAdded.isSameOrAfter(startDate) && dateAdded.isSameOrBefore(endDate);
     }
   });
-
   $('#applyFilter').click(function() {
     table.draw();
     $('#filterModal').modal('hide');
   });
-
   $('#clearFilter').click(function() {
     $('#filterDropdown').val(''); // Clear category filter
     $('#startDate').val('');
