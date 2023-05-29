@@ -103,6 +103,7 @@
         <script src="{{URL::asset('asset/DataTables/pdfmake.min.js')}}"></script>
         <script src="{{URL::asset('asset/DataTables/jszip.min.js')}}"></script>
         <script src="{{URL::asset('asset/DataTables/vfs_fonts.js')}}"></script>
+        <script src="{{URL::asset('asset/DataTables/moment.js')}}"></script>
 
         <!-- Magnifier -->
         <script src="{{URL::asset('asset/vendors/magnifier.js/magnifier.js')}}"></script>
