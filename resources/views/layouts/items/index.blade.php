@@ -205,13 +205,7 @@
             @endforeach
           </select>
 
-          
 
-
-          
-
-          <span style="padding-left: 5px;"></span>
-          <a href="{{ route('item.printqr') }}" class="btn btn-primary m-1 btn-sm rounded">Print QR Codes</a>
           <table id="itemTable" class="table table-striped jambo_table bulk_action">
             <!-- Button to open the filter modal -->
             <button type="button" class="btn btn-success m-1 btn-sm rounded" data-toggle="modal" data-target="#filterModal">
@@ -255,10 +249,6 @@
             </div>
 
             @csrf
-
-
-
-
 
             <thead>
 
@@ -495,8 +485,4 @@
                               </div>
                           </div>
                       </div>
-                  </div>
-
-
-
-                       
+                  </div>                    
