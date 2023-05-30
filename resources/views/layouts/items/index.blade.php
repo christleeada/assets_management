@@ -309,7 +309,7 @@
                       </button>
                     </form>
                     @endif
-                    <button class="btn btn-info m-1 btn-sm rounded" title="Edit" data-toggle="modal" data-target="#editModal{{ isset($value) ? $value->id : '' }}">
+                    <button class="btn btn-info m-1 btn-sm rounded" title="Edit" data-toggle="modal" data-target="#editModal">
                         <i class="fa fa-edit sm"></i>
                     </button>
 
@@ -337,12 +337,7 @@
       </div>
     </div>
   </div>
-</x-app-layout>
-@include('layouts.scripts.items-script')
-@include('layouts.scripts.messages-script')
-
-<!-- Modal -->
-<div class="modal fade" id="editModal{{ isset($value) ? $value->id : '' }}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
                       <div class="modal-dialog" role="document">
                           <div class="modal-content">
                               <div class="modal-header">
@@ -486,3 +481,8 @@
                           </div>
                       </div>
                   </div>                    
+</x-app-layout>
+@include('layouts.scripts.items-script')
+@include('layouts.scripts.messages-script')
+
+<!-- Modal -->
