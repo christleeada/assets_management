@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('post_status_id');
             $table->unsignedBigInteger('unit_type');
             $table->unsignedBigInteger('item_category');
+            $table->unsignedBigInteger('location');
             $table->decimal('price', 8, 2);
             $table->string('brand');
             $table->string('remarks')->nullable();
@@ -34,6 +35,7 @@ return new class extends Migration
             $table->foreign('post_status_id')->references('id')->on('statuses');
             $table->foreign('unit_type')->references('id')->on('unit_types');
             $table->foreign('item_category')->references('id')->on('item_categories');
+            $table->foreign('location')->references('id')->on('locations');
         });
     }
     

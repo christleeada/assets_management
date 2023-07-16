@@ -29,6 +29,7 @@ class Item extends Model
                            'purchased_as',
                            'advice',
                            'estimated_lifespan',
+                           'location'
                            
                            
                            
@@ -42,7 +43,7 @@ class Item extends Model
     public function itemCategory(){
         return $this->belongsTo(ItemCategory::class,'item_category', 'id');
     }
-    public function location(){
+    public function itemLocation(){
         return $this->belongsTo(Location::class,'location', 'id');
     }
     public function unitType(){

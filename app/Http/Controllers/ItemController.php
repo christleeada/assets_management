@@ -10,6 +10,7 @@ use Illuminate\Http\Response;
 use App\Models\ItemCategory;
 use App\Models\Status;
 use App\Models\UnitType;
+use App\Models\Location;
 use Exception;
 use Barryvdh\DomPDF\PDF;
 use Carbon\Carbon;
@@ -32,13 +33,14 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $data = Item::with('status', 'itemCategory', 'unitType', 'inventoryType')->withoutTrashed()->get();
+        $data = Item::with('status', 'itemCategory', 'unitType', 'inventoryType', 'itemLocation')->withoutTrashed()->get();
         $categories = ItemCategory::all();
         $unit_types = UnitType::all();
         $inventory_types = InventoryType::all();
         $statuses = Status::all();
+        $locations = Location::all();
     
-        return view('layouts.items.index', compact('data', 'categories', 'unit_types', 'inventory_types', 'statuses'));
+        return view('layouts.items.index', compact('data', 'categories', 'unit_types', 'inventory_types', 'statuses', 'locations'));
     }
     
 
@@ -156,6 +158,7 @@ public function printqr()
         'remarks' => 'nullable',
         'image' => 'required|image',
         'purchased_as' => 'required',
+        'location' => 'required',
     ]);
     if (!$request->filled('post_status_id')) {
         $validatedData['post_status_id'] = 1;

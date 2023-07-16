@@ -48,6 +48,17 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                        <label for="location" class="col-sm-2 col-form-label">Location</label>
+                                        <div class="col-sm-10">
+                                            <select name="location" class="form-control" id="location">
+                                                <option>Select Location</option>
+                                                @foreach ($locations as $location)
+                                                <option value="{{ $location->id }}" {{ old('location_name', isset($location->location_name) ? $location->location_name : '') == $location->id ? 'selected' : '' }}>{{ $location->location_name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                <div class="form-group row">
                                     <label for="item_name" class="col-sm-2 col-form-label"> Asset Name</label>
                                     <div class="col-sm-10">
                                         <input type="text" name="item_name" value="{{ old('item_name', isset($item->item_name) ? $item->item_name : '') }}" class="form-control" id="item_name">
@@ -263,7 +274,7 @@
                 <th class="column-title">Unit Type</th>
                 <th class="column-title">Date Purchased</th>
                 <th class="column-title">Date Added</th>
-
+                <th class="column-title">Location</th>
                 <th class="column-title">Status</th>
                 <th class="column-title"><span class="nobr"></span></th>
               </tr>
@@ -283,6 +294,7 @@
                 <td class=" ">{{$value->unitType->unit_type}}</td>
                 <td class=" ">{{$value->date_purchased}}</td>
                 <td class=" ">{{$value->created_at}}</td>
+                <td class=" ">{{$value->itemLocation->location_name}}</td>
                 <td class="">
                   @if($value->post_status_id === 5)
                   <span class="badge badge-warning">{{ $statuses->find($value->post_status_id)->status }}</span>
